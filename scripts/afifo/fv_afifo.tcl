@@ -1,0 +1,1 @@
+#tcl for the afifo

@@ -1,0 +1,1 @@
+//bind for the afifo
