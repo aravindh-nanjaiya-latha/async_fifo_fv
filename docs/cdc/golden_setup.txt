@@ -1,0 +1,347 @@
+***************************************
+  Title: Jasper(R) - CDC Setup Report  
+***************************************
+
+  Date: Oct 20 16:27:38 PDT 2026  
+  Tool Version: 2026.06 FCS 64 bits  
+  Top Module: gold_top  
+
+********************************************************************************************
+      Section 1: DESIGN STATISTICS
+********************************************************************************************
+
+      Design Size:
+============================================================================================
+------------------------------------
+ Number of Gates | Number of Flops 
+------------------------------------
+  67                178             
+
+
+      Black Boxes:
+============================================================================================
+--------------------------
+ Module Name | Bbox-Type 
+--------------------------
+  -             -         
+
+
+      Liberty Modules:
+============================================================================================
+------------------------------
+ Module/Cell Name | Filename 
+------------------------------
+  -                  -        
+
+
+      Design Parameters:
+============================================================================================
+-------------------------
+ Parameter Name | Value 
+-------------------------
+  AW               4     
+  DW               8     
+
+********************************************************************************************
+      Section 2: TOOL CONFIGURATION
+********************************************************************************************
+============================================================================================
+      Section 2.1: Rule Configuration
+============================================================================================
+
+      Enabled Rules Summary:
+============================================================================================
+-----------------------------------------------
+ Category            | Error | Warning | Info 
+-----------------------------------------------
+  CDC_SYNCHRONIZATION   10      5         0    
+  CDC_CONVERGENCE       2       0         0    
+  CDC_FUNCTIONAL        12      0         0    
+  CDC_METASTABILITY     2       0         0    
+  RST_SYNCHRONIZATION   9       1         0    
+  RST_CONVERGENCE       2       0         0    
+  CDC_SETUP             4       5         0    
+  RST_SETUP             4       3         0    
+  INTEGRATION_SETUP     15      2         0    
+
+
+      Enabled Rules Detailed:
+============================================================================================
+--------------------------------------
+ Tag Name    | Alias Name | Severity 
+--------------------------------------
+  PRT_IS_UNCK   -            Warning  
+  CLK_IS_CNST   -            Warning  
+  FLP_CK_CNST   -            Error    
+  CLK_NO_DECL   -            Error    
+  FLP_CK_UDCL   -            Error    
+  LTC_NO_INIT   -            Error    
+  CDC_LP_ISOC   -            Warning  
+  CDC_LP_ISOR   -            Warning  
+  CLK_IN_DTPH   -            Warning  
+  RST_NO_DECL   -            Error    
+  RST_RS_CNST   -            Warning  
+  RST_NO_CONS   -            Error    
+  RST_RS_FSAR   -            Warning  
+  FLP_NO_INIT   -            Warning  
+  FLP_RS_UDCL   -            Error    
+  FLP_RS_UPOL   -            Error    
+  CDC_LP_ASCI   -            Warning  
+  CDC_LP_ASLI   -            Warning  
+  CDC_LP_ASRR   -            Warning  
+  CDC_LP_ASRS   -            Warning  
+  CDC_NO_SYNC   -            Error    
+  CDC_PR_LOGC   -            Error    
+  CDC_PR_FOUT   -            Warning  
+  CDC_PR_LTCH   -            Error    
+  SYN_DF_SLGC   -            Error    
+  SYN_DF_CKPH   -            Error    
+  SYN_DF_FOUT   -            Error    
+  SYN_SE_INVL   -            Error    
+  SYN_GP_ASIP   -            Error    
+  SYN_GP_ASOP   -            Error    
+  ICG_EN_ASYN   -            Error    
+  CNV_ST_GLCH   -            Error    
+  CNV_ST_CONV   -            Error    
+  CTL_NO_STBL   -            Error    
+  PLS_NO_STBL   -            Error    
+  DAT_NO_STBL   -            Error    
+  DAT_HS_STBL   -            Error    
+  PSH_ON_FULL   -            Error    
+  POP_ON_EMTY   -            Error    
+  GET_NO_STBL   -            Error    
+  PUT_NO_STBL   -            Error    
+  GPD_NO_STBL   -            Error    
+  SYN_NO_STBL   -            Error    
+  INC_FN_PROP   -            Error    
+  USR_FN_PROP   -            Error    
+  CHK_MS_FAIL   -            Error    
+  INJ_MS_FAIL   -            Error    
+  RST_RS_CONV   -            Error    
+  RST_PH_GLCH   -            Error    
+  RST_NO_SYNC   -            Error    
+  RDC_RS_SYCA   -            Error    
+  RDC_RS_DFRS   -            Error    
+  RST_RS_RIDP   -            Error    
+  RST_RS_RILP   -            Error    
+  SYN_RS_CKPH   -            Error    
+  SYN_RS_SMDR   -            Error    
+  SYN_RS_SLGC   -            Error    
+  SYN_RS_RDND   -            Warning  
+  RST_RS_FOUT   -            Error    
+  RST_IN_UDEF   -            Error    
+  RST_IN_URST   -            Error    
+  RST_IN_UPOL   -            Error    
+  RST_IN_RORD   -            Error    
+  PRT_NO_CONS   -            Error    
+  PRT_DF_CONS   -            Error    
+  CDC_IN_NSYN   -            Error    
+  CLK_IN_UDEF   -            Error    
+  CLK_IN_UCKF   -            Error    
+  CLK_IN_UREL   -            Error    
+  CLK_IN_WREL   -            Warning  
+  INV_IN_ASUM   -            Error    
+  INV_IN_PCND   -            Error    
+  INT_IN_PROP   -            Warning  
+  HDB_IN_LDFL   -            Error    
+  SIG_RD_TYPE   -            Error    
+  SIG_PG_CONF   -            Error    
+
+============================================================================================
+      Section 2.2: Parameter Configuration
+============================================================================================
+
+      Rule Parameters:
+============================================================================================
+------------------------------------------------------------------------------------
+ Parameter Name                                   | Domain | Tag         | Value   
+------------------------------------------------------------------------------------
+  apply_auto_waivers                                 Global   All           false   
+  automatic_scheme_detection                         Global   All           true    
+  ndff_detection                                     Global   All           true    
+  pulse_detection                                    Global   All           true    
+  edge_detection                                     Global   All           true    
+  mux_ndff_detection                                 Global   All           false   
+  mux_pulse_detection                                Global   All           false   
+  handshake_detection                                Global   All           false   
+  gated_clock_detection                              Global   All           true    
+  mux_loop_detection                                 Global   All           true    
+  strict_ndff_detection                              Global   All           true    
+  allow_sync_chain_logic                             Global   All           false   
+  allow_sync_chain_fanout                            Global   All           false   
+  use_sdc_clock_period                               Global   All           true    
+  add_stopat_for_internal_constants                  Global   All           true    
+  override_sdc_constants                             Global   All           true    
+  generated_clocks_sync_to_parents                   Global   All           false   
+  treat_data_ports_as_async                          Global   All           None    
+  treat_undriven_as_units                            Global   All           false   
+  auto_potential_sync_enabler_detection              Global   All           false   
+  ignore_convergence_from_complex_schemes            Global   All           false   
+  propagate_clock_through_control_path               Global   All           true    
+  report_violations_on_unconnected_load              Global   All           false   
+  consider_stopat_unconnected_load                   Global   All           false   
+  report_violations_on_constant_load                 Global   All           false   
+  structurally_waive_reset_to_inactive_clock         Global   All           false   
+  all_clocks_sync_by_default                         Global   All           false   
+  fifo_detection                                     Global   All           true    
+  convergence_inside_ctrl_sync                       CDC      All           false   
+  depth                                              CDC      All           0       
+  flop_constant_propagation                          CDC      All           false   
+  group_fsm_convergences                             CDC      All           false   
+  ignore_unsync_paths_in_convergence                 CDC      All           true    
+  latch_constant_propagation                         CDC      All           false   
+  liberty_clock_pin_as_datapath                      CDC      All           false   
+  src_unit_domain                                    CDC      All           Both    
+  src_unit_signal                                    CDC      All           Both    
+  use_only_rtl_constants_for_glitch_simplification   CDC      All           false   
+  allow_reset_sync_chain_logic                       RDC      All           false   
+  auto_reset_sync_detection                          RDC      All           true    
+  ignore_internal_non_declared_resets                RDC      All           false   
+  ignore_non_resettable_flop                         RDC      All           true    
+  nonblocking_reset_control_logic                    RDC      All           false   
+  report_violations_on_undeclared_reset              RDC      All           false   
+  rtl_constant_for_reset_scheme                      RDC      All           false   
+  strict_reset_scheme_detection                      RDC      All           true    
+  treat_data_ports_reset_as_async                    RDC      All           None    
+  zero_rc_non_resettable_flop                        RDC      All           false   
+  glitch_check                                       CDC      CNV_ST_GLCH   Covered 
+  n_min                                              CDC      CDC_NO_SYNC   2       
+  autowaive_reset_clamp_pair_logic                   CDC      CDC_PR_LOGC   false   
+  cdc_pair_logic                                     CDC      CDC_PR_LOGC   Buf     
+  do_not_report_unsynchronized_pair_logic            CDC      CDC_PR_LOGC   true    
+  sync_chain_logic                                   CDC      SYN_DF_SLGC   Buf     
+  ignore_reset_in_datapath_for_control_sync          RDC      RST_RS_RIDP   true    
+  reset_sync_chain_logic                             RDC      SYN_RS_SLGC   Buf     
+  autowaive_reset_clear_logic                        RDC      RST_RS_CONV   true    
+  report_convergence_same_driver                     RDC      RST_RS_CONV   false   
+  reset_min_dff                                      RDC      RST_NO_SYNC   2       
+  autowaive_rdc_with_ndff                            RDC      RDC_RS_DFRS   true    
+  different_reset_in_clock_paths                     RDC      RDC_RS_DFRS   false   
+  ignore_rdc_from_same_reset_source                  RDC      RDC_RS_DFRS   true    
+  treat_boundaries_as_rdc                            RDC      RDC_RS_DFRS   false   
+  autowaive_liberty_unclocked_ports_noarc            SETUP    PRT_IS_UNCK   true    
+
+
+============================================================================================
+      Section 2.3: Tool Settings:
+============================================================================================
+------------------------------------------------------
+ Setting                                    | Value  
+------------------------------------------------------
+  cdc_calculate_boundary_data_during_extract   false  
+  cdc_clock_period_max_factor                  10     
+  cdc_conditional_waiver_property_limit        200000 
+  cdc_gate_level_analysis_mode                 off    
+  cdc_machine_learning_flow                    false  
+  cdc_parallel_extraction                      1      
+
+********************************************************************************************
+      Section 3: DESIGN CONFIGURATION
+********************************************************************************************
+
+============================================================================================
+      Section 3.1: Declared Clocks:
+============================================================================================
+-----------------------------------------------------------
+ Clock Signal | Clock Name | Source | Command             
+-----------------------------------------------------------
+  w_clk          w_clk_n0     Tcl      config_rtlds -clock 
+  r_clk          r_clk_n1     Tcl      config_rtlds -clock 
+
+
+============================================================================================
+      Section 3.2: SDC Command Summary:
+============================================================================================
+-----------------------------------------------
+ Command Name | Successful | Failed | Ignored 
+-----------------------------------------------
+  -              -            -        -       
+
+
+============================================================================================
+      Section 3.3: Declared Resets:
+============================================================================================
+-------------------------------------------------------------
+ Reset Name | Reset Type   | Polarity | Command             
+-------------------------------------------------------------
+  rrst_n       synchronized   low        config_rtlds -reset 
+  wrst_n       synchronized   low        config_rtlds -reset 
+
+============================================================================================
+      Section 3.4: Applied Constraints
+============================================================================================
+
+      Signal Configuration:
+============================================================================================
+---------------------------------------------
+ Signal Name | Type | Value | Mode | Source 
+---------------------------------------------
+  -             -      -       -      -      
+
+
+      False Paths:
+============================================================================================
+-----------------------------
+ From | To | Through | Type 
+-----------------------------
+  -      -    -         -    
+
+
+      Externally Synchronized:
+============================================================================================
+-------------------------------------------------
+ Signal Name | Destination Clock | Source Clock 
+-------------------------------------------------
+  -             -                   -            
+
+
+      Clock Rating of Ports:
+============================================================================================
+--------------------------------------
+ Signal Name | Clock Rating | Source 
+--------------------------------------
+  data_in       w_clk_n0       Tcl    
+  w_ptr         w_clk_n0       Tcl    
+  r_ptr         r_clk_n1       Tcl    
+  r_en          r_clk_n1       Tcl    
+  w_en          w_clk_n0       Tcl    
+
+
+      Structural Cells:
+============================================================================================
+-----------------------
+ Module/Instance Name 
+-----------------------
+  -                    
+
+
+      User-Defined Synchronizers:
+============================================================================================
+-----------------------------------------------
+ Module/Instance Name | Scheme Name | Mapping 
+-----------------------------------------------
+  -                      -             -       
+
+
+      Reset Order:
+============================================================================================
+-------
+ List 
+-------
+  -    
+
+
+      Reset Rating of Ports:
+============================================================================================
+-----------------------------
+ Signal Name | Reset Rating 
+-----------------------------
+  data_in       wrst_n       
+  w_ptr         wrst_n       
+  r_ptr         rrst_n       
+  r_en          rrst_n       
+  w_en          wrst_n       
+
+
+
+
