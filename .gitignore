@@ -12,3 +12,8 @@ jasper_cdc_*.pdf
 
 # Cadence documentation -- licensed, do not redistribute
 jasper_cdc_*.pdf
+
+# Draft project documentation — not ready for publication
+/docs/assumptions.md
+/docs/bug_report.md
+/docs/fv_tracker.md
