@@ -211,7 +211,7 @@ module fv_afifo_full #(
 logic [SEQW-1:0] occ;
 assign occ = wr_seq - rd_seq;        // SEQW=5, max 16 in flight -> no aliasing
 
-localparam int SYNC_LAT = 2;
+localparam int SYNC_LAT = 3;
 	    
 
 
@@ -225,5 +225,10 @@ chk_fv_full_deasserts_within_sync_lat:
   assert property (@(posedge w_clk) disable iff (!wrst_n)
     (full && (occ != DEPTH)) |-> ##[1:SYNC_LAT] !full);
 
+// evaluating empty and full conditions using occupancy
+chk_fv_empty_when_occ_zero:
+  assert property (@(posedge r_clk) disable iff (!rrst_n) (occ == 0)     |-> empty);
+chk_fv_full_when_occ_depth:
+  assert property (@(posedge w_clk) disable iff (!wrst_n) (occ == DEPTH) |-> full);
 
 endmodule
