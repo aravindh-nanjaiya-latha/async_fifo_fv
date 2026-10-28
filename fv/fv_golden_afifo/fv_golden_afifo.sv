@@ -3,8 +3,9 @@
 
 module fv_afifo_full #(
   parameter int DW = 8,
-  parameter int AW = 4, // depth = 2^AW (AW=4 -> 4)
-  parameter int SEQW = 5,
+  parameter int AW = 4, // depth = 2^AW (AW=4 -> 16)
+  parameter int BW = AW+1,
+  parameter int SEQW = 4,
   parameter int DEPTH = (1<<AW)
 )(
   input logic          w_clk, wrst_n, w_en, full,
@@ -43,6 +44,186 @@ module fv_afifo_full #(
       chk_fv_stable_dout:
 	assert property (@(posedge r_clk) disable iff (!rrst_n)
 			 !rd_fire |=> $stable(data_out));
+
+  //end of reset checks.	 
+	 
+//=================================================================
+//Symbolic technique to check data ordering and data integrity
+//=================================================================
+
+	 // a tag is created to take the symbolic value
+	 logic [SEQW-1:0] tag;
+
+	 //assume the tag is completely stable
+	 //This property keeps the tag constant 
+	 chk_fv_asm_stable_tag:
+	   assume property ($stable(tag));
+
+	 //using local pointers to increment the value and when the tag matches the pointer
+	 //data in is stored in into a internal logic.
+	    logic [SEQW-1:0] wr_seq, rd_seq;
+
+	    //increment on wr's
+	    always_ff @(posedge w_clk or negedge wrst_n) begin
+	       if(!wrst_n)
+		 wr_seq <= '0;
+	       else if (wr_fire)
+		 wr_seq <= wr_seq + 1'b1;
+	    end
+   
+   //increment on rd's
+   always_ff @(posedge r_clk or negedge rrst_n) begin
+      if(!rrst_n)
+	rd_seq <= '0;
+      else if (rd_fire)
+	rd_seq <= rd_seq + 1'b1;
+   end
+
+   //logic to keep track of the data
+   logic [DW-1:0]data_tracked;
+   logic 	   valid;
+   
+   always_ff @(posedge w_clk or negedge wrst_n) begin
+      if(!wrst_n) begin
+	data_tracked <= '0;
+        valid <= 1'b0;
+      end else if (wr_fire && (wr_seq == tag)) begin
+	 data_tracked <= data_in;
+	 valid <= 1'b1;
+      end
+   end
+
+   //Should write properties to verify the data on rd_side
+   //Starting on 09/27/2026
+   // When the rd tag matches - check data_out with data_tracked
+   chk_data_match:
+     assert property (@(posedge r_clk) disable iff (!rrst_n)
+		      (rd_seq == tag && rd_fire && valid) |=> (data_tracked == data_out));
+      //checking ptr advancement
+      // initally the property was written without AW'
+      // But Jasper was giving CEX from 4b'1111 to 4b'0000 which is a valid trace
+      // AW' is to a make the ptr advancement within the bit width of AW.
+      chk_wrptr:
+	assert property (@(posedge w_clk) disable iff (!wrst_n)
+			 wr_fire |=> (w_ptr == AW'($past(w_ptr)+1)));
+      //check rd_ptr
+      chk_rptr:
+	assert property (@(posedge r_clk) disable iff (!rrst_n)
+			 rd_fire |=> (r_ptr == AW'($past(r_ptr)+1)));
+
+      //check wbin and rbin
+      chk_wbin:
+	assert property (@(posedge w_clk) disable iff (!wrst_n)
+			 wr_fire |=> (wbin == BW'($past(wbin)+1)));
+	 
+      chk_rbin:
+	assert property (@(posedge r_clk) disable iff (!rrst_n)
+			 rd_fire |=> (rbin == BW'($past(rbin)+1)));
+
+     //below proeprty checks if the pointer doesnt advance when the fifo is full.
+
+	 chk_no_increment_when_full:
+	   assert property (@(posedge w_clk) disable iff (!wrst_n)
+			    w_en && full |=> $stable(w_ptr));
+
+	 chk_no_increment_when_empty:
+	   assert property (@(posedge r_clk) disable iff (!rrst_n)
+			    r_en && empty |=> $stable(r_ptr));
+	    
+	    
+	 
+   //checking the gray coded pointers
+   //gray coded ptr's usually have 1bit difference b/w them
+   // so cannot use >$past
+   // instead we can use EXOR operation with current and past value.
+   // If the resulting boolean value is 1 then increment is right.
+      chk_wgray_onehot0:
+	assert property (@(posedge w_clk) disable iff (!wrst_n)
+			 $past(wrst_n) |-> $onehot0(wgray ^ $past(wgray)));
+
+	 chk_rgray_onehot0:
+	   assert property (@(posedge r_clk) disable iff (!rrst_n)
+			    $past(rrst_n) |-> $onehot0(rgray ^ $past(rgray)));
+	 
+    // The above property only checks if there is a 1 bit change b/w the current and the next value.
+    // But it doesnt check if it is incrmenting to the right gray value.
+    // Below properties check if it incremented to the right value
+	       // Ensure wgray matches the expected gray-coded value of wbin
+      chk_wgray_correct_encoding:
+        assert property (@(posedge w_clk) disable iff (!wrst_n)
+                         (wgray == (wbin ^ (wbin >> 1))));
+
+      chk_rgray_correct_encoding:
+        assert property (@(posedge r_clk) disable iff (!rrst_n)
+                         (rgray == (rbin ^ (rbin >> 1))));
+
+	 
+    //cover to check if full and empty conditions happen
+	    cov_full_after_empty:
+	      cover property (@(posedge w_clk) disable iff (!wrst_n)
+			      empty ##[1:$] full);
+	       cov_empty_after_full:
+	      cover property (@(posedge w_clk) disable iff (!wrst_n)
+			      full ##[1:$] empty);
+
+// hold - if no accepted write, w_ptr must not change on the next w_clk
+      chk_fv_same_w_ptr_on_no_write:
+	assert property (@(posedge w_clk) disable iff (!wrst_n)
+			 !wr_fire |=> ($past(w_ptr)== w_ptr));
+	 
+// hold - if no accepted write, wbin must not change on the next w_clk
+	 chk_fv_same_wbin_on_no_write:
+	   assert property (@(posedge w_clk) disable iff (!wrst_n)
+			    !wr_fire |=> ($past(wbin) == wbin));
+	    
+// hold - if no accepted read, r_ptr must not change on the next r_clk
+	 chk_fv_same_r_ptr_on_no_read:
+	   assert property (@(posedge r_clk) disable iff (!rrst_n)
+			    !rd_fire |=> ($past(r_ptr) == r_ptr));
+	    
+// hold - if no accepted read, rbin must not change on the next r_clk
+	 chk_fv_same_rbin_on_no_read:
+	   assert property (@(posedge r_clk) disable iff (!rrst_n)
+			    !rd_fire |=> ($past(rbin) == rbin));
+	    
+// cover - an accepted write occurs while wr_seq equals tag (scoreboard captures)
+	 cov_fv_data_captured:
+	   cover property (@(posedge w_clk)
+			   ((tag == wr_seq)&& wr_fire) ##1 valid); //Cover usually gives the shortest trace. 
+	    
+// cover - an accepted read occurs while rd_seq equals tag and valid is set (scoreboard checks)
+	 cov_fv_data_checked:
+	   cover property (@(posedge r_clk)
+			   (tag == rd_seq) && rd_fire);
+	    
+// cover - the scoreboard check fires after wr_seq has wrapped past tag (second lap reached)
+// cover - w_ptr goes from DEPTH-1 to 0 on consecutive w_clk edges (write wrap exercised)
+	 cov_fv_wptr_wrap:
+	   cover property (@(posedge w_clk) disable iff (!wrst_n)
+			   w_ptr == 4'b0 && wr_fire ##1 w_ptr == 4'b1 ##[0:$] w_ptr == 4'b0);
+	    
+	    
+// cover - r_ptr goes from DEPTH-1 to 0 on consecutive r_clk edges (read wrap exercised)
+	 cov_fv_rptr_wrap:
+	   cover property (@(posedge r_clk) disable iff (!rrst_n)
+			   r_ptr == 4'b0 && rd_fire ##1 r_ptr == 4'b1 ##[0:$] r_ptr == 4'b0);
+	    
+logic [SEQW-1:0] occ;
+assign occ = wr_seq - rd_seq;        // SEQW=5, max 16 in flight -> no aliasing
+
+localparam int SYNC_LAT = 2;
+	    
+
+
+// empty is a read domain signal. so i came up with a property to evaluate in the rd clock.
+chk_fv_empty_deasserts_within_sync_lat:
+  assert property (@(posedge r_clk) disable iff (!rrst_n)
+    (empty && (occ != 0)) |-> ##[1:SYNC_LAT] !empty);
+
+// full is a write domain signal. evaluating it in the wr clock.
+chk_fv_full_deasserts_within_sync_lat:
+  assert property (@(posedge w_clk) disable iff (!wrst_n)
+    (full && (occ != DEPTH)) |-> ##[1:SYNC_LAT] !full);
 
 
 endmodule
