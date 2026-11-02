@@ -4,7 +4,7 @@
 
 This project applies Formal Property Verification (FPV) and Clock Domain Crossing (CDC) analysis to asynchronous FIFO designs using Cadence JasperGold.
 
-The objective is to develop a reusable verification methodology, validate it against a reference FIFO generated with Claude and independently evaluated through formal verification, then apply the same methodology, unchanged, to an asynchronous FIFO that my friends and I designed and verified with UVM as a personal project in summer 2026, outside any course. That design passed its own simulation regression; this project asks what a formal flow finds that simulation did not.
+The objective is to develop a reusable verification methodology, validate it against a reference FIFO generated with Claude and independently evaluated through formal verification, then apply the same methodology, unchanged, to an asynchronous FIFO that my friends and I designed and verified with UVM as a personal project in summer 2025, outside any course. That design passed its own simulation regression; this project asks what a formal flow finds that simulation did not.
 
 This project is developed as part of ECE 506 — Project at Portland State University.
 
@@ -24,7 +24,7 @@ Validating the checkers on a known-good design first separates defects in the de
 | Design | Depth | Description |
 |---|---|---|
 | Golden FIFO | 16 | Claude-generated reference asynchronous FIFO using Gray-coded pointers and two-flop synchronizers |
-| Baseline FIFO | 45 | Non-power-of-two asynchronous FIFO, developed as a personal project (summer 2026) |
+| Baseline FIFO | 45 | Non-power-of-two asynchronous FIFO, developed as a personal project (summer 2025) |
 
 The golden FIFO is used to validate the verification infrastructure. The baseline FIFO is the design under verification and the experimental baseline.
 
@@ -110,7 +110,7 @@ The `rtl/` directory is preserved as the unmodified baseline implementation duri
 
 ## Original Design Attribution
 
-The baseline asynchronous FIFO RTL and UVM testbench were developed in summer 2026 by Aravindh Nanjaiya Latha, Maithreyi Venkatesan and Raghavendra Davarapalli as a personal, ungraded project, outside any course and not previously submitted for credit.
+The baseline asynchronous FIFO RTL and UVM testbench were developed in summer 2025 by Aravindh Nanjaiya Latha, Maithreyi Venkatesan and Raghavendra Davarapalli as a personal, ungraded project, outside any course and not previously submitted for credit.
 
 Original project repository: [RaghaHanuma22/Async_FIFO](https://github.com/RaghaHanuma22/Async_FIFO)
 
