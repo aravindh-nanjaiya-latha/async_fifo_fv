@@ -17,3 +17,6 @@ jasper_cdc_*.pdf
 /docs/assumptions.md
 /docs/bug_report.md
 /docs/fv_tracker.md
+.nfs*
+*.zip
+*~
