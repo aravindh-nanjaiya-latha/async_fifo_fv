@@ -16,6 +16,9 @@
 #=============================================================================
 clear -all
 
+if {![info exists DW]} { set DW 8 }   ;# data width; override: set DW 2; include scripts/afifo/fv_afifo.tcl
+puts "DW    = $DW"
+
 set ROOT [exec git rev-parse --show-toplevel]   ;# same as the CDC script; info-script-relative paths broke before
 puts "ROOT  = $ROOT"
 puts "AFIFO = $ROOT/rtl"
@@ -29,10 +32,10 @@ analyze -sv09 $ROOT/rtl/top.sv
 
 #--- checker + bind
 analyze -sv12 $ROOT/fv/fv_afifo/fv_afifo.sv
-analyze -sv12 $ROOT/scripts/afifo/fv_afifo_bind.sv
+analyze -sv12 +define+FV_DW=$DW $ROOT/scripts/afifo/fv_afifo_bind.sv
 
 #--- elaborate the DUT top
-elaborate -top top
+elaborate -top top -parameter top.data_width $DW
 
 #--- clocks: free running, same declaration as the golden run so results are comparable
 #    (clock -factor would fix a frequency ratio; deliberately not used)

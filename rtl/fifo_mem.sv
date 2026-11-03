@@ -8,7 +8,7 @@ output logic [data_width-1:0] data_out,
 input logic [5:0] w_ptr,r_ptr
 );
 
-logic [data_width-1:0] f_mem [depth-1:9];
+logic [data_width-1:0] f_mem [depth:9];   // BUG FIX 5: pointers address 9..54 (46 slots); array was [53:9], slot 54 did not exist
 
 //Logic for write side
 always_ff @(posedge w_clk or negedge arstn) begin
