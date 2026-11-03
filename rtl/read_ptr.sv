@@ -12,7 +12,9 @@ logic [ptr_width-1 :0] b_rptr_next;
 logic [ptr_width-1 :0] g_rptr_next;
 logic rempty;
 
-assign b_rptr_next = (b_rptr == 6'b110110)? 6'b001001 : b_rptr + ((r_en & ~empty));
+   //BUG3: Read isnt gated by empty condition. So even when the fifo is empty and b_rptr_next is calculated.
+   //assign b_rptr_next = (b_rptr == 6'b110110)? 6'b001001 : b_rptr + ((r_en & ~empty));
+assign b_rptr_next = (r_en & ~empty) ? ((b_rptr == 6'b110110) ? 6'b001001 : b_rptr + 1'b1) : b_rptr;
 assign g_rptr_next = (b_rptr_next) ^ (b_rptr_next>>1);
 assign rempty = (g_wptr_sync == g_rptr_next); //g_rptr_next - modified
 
