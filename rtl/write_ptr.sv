@@ -35,17 +35,24 @@ module w_ptr (
     //========================================================
     // Write pointer update
     //========================================================
-    always_ff @(posedge wclk or negedge wrst_n) begin
-        if (!wrst_n)
-            b_wptr <= 6'd9;  // start at 9 after reset
-        else if (wen && !full)
-            b_wptr <= b_wptr_next;
-    end
+    // BUG FIX 6: g_wptr was combinational (assign g_wptr = b_wptr ^ (b_wptr >> 1)) and fed
+    // the read-side synchroniser directly, so the crossing launched from the BINARY register
+    // through XOR logic: a multi-bit binary step can glitch into sync_instR.q1.
+    // Found by the Jasper CDC app (CDC_PR_LOGC, visible with fifo_detection=false).
+    // FIXED by registering the gray pointer, as read_ptr.sv already does for g_rptr.
+    logic [5:0] g_wptr_next;
+    assign g_wptr_next = b_wptr_next ^ (b_wptr_next >> 1);
 
-    //========================================================
-    // Generate Gray code write pointer
-    //========================================================
-    assign g_wptr = b_wptr ^ (b_wptr >> 1);
+    always_ff @(posedge wclk or negedge wrst_n) begin
+        if (!wrst_n) begin
+            b_wptr <= 6'd9;        // start at 9 after reset
+            g_wptr <= 6'b001101;   // gray(9)
+        end
+        else if (wen && !full) begin
+            b_wptr <= b_wptr_next;
+            g_wptr <= g_wptr_next;
+        end
+    end
 
     //========================================================
     // Full condition:
