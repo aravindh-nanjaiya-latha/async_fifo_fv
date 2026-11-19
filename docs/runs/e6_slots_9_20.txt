@@ -1,0 +1,184 @@
+
+==============================================================
+    Jasper Verification Results
+==============================================================
+    2026.06 FCS 64 bits for Linux64 4.18.0-372.26.1.el8_6.x86_64
+    Host Name: deimos.ece.pdx.edu
+    User Name: aravindh
+    Printed on: Friday, Nov 6, 2026 04:27:46 AM PST
+    Working Directory: /home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv
+
+
+==============================================================
+RESULTS
+==============================================================
+
+-------------------------------------------------------------------------------------------------------------------------------------
+       Name                                                                         |    Result    |  Engine  |  Bound  |  Time    
+-------------------------------------------------------------------------------------------------------------------------------------
+
+---[ <embedded> ]--------------------------------------------------------------------------------------------------------------------
+[1]   top.w_inst._assert_1                                                               unprocessed     ?          1 -     0.000 s      
+[2]   top.w_inst._assert_1:precondition1                                                 unprocessed     ?          1 -     0.000 s      
+[3]   top.r_inst._assert_1                                                               unprocessed     ?          1 -     0.000 s      
+[4]   top.r_inst._assert_1:precondition1                                                 unprocessed     ?          1 -     0.000 s      
+[5]   top.tc_checker_inst.chk_fv_empty_after_reset                                       unprocessed     ?          1 -     0.000 s      
+[6]   top.tc_checker_inst.chk_fv_empty_after_reset:precondition1                         unprocessed     ?          1 -     0.000 s      
+[7]   top.tc_checker_inst.chk_fv_no_full_after_reset                                     unprocessed     ?          1 -     0.000 s      
+[8]   top.tc_checker_inst.chk_fv_no_full_after_reset:precondition1                       unprocessed     ?          1 -     0.000 s      
+[9]   top.tc_checker_inst.chk_fv_stable_dout                                             unprocessed     ?          1 -     0.000 s      
+[10]  top.tc_checker_inst.chk_fv_stable_dout:precondition1                               unprocessed     ?          1 -     0.000 s      
+[11]  top.tc_checker_inst.chk_data_match                                                 unprocessed     ?          1 -     0.000 s      
+[12]  top.tc_checker_inst.chk_data_match:precondition1                                   unprocessed     ?          1 -     0.000 s      
+[13]  top.tc_checker_inst.chk_wrptr                                                      unprocessed     ?          1 -     0.000 s      
+[14]  top.tc_checker_inst.chk_wrptr:precondition1                                        unprocessed     ?          1 -     0.000 s      
+[15]  top.tc_checker_inst.chk_rptr                                                       unprocessed     ?          1 -     0.000 s      
+[16]  top.tc_checker_inst.chk_rptr:precondition1                                         unprocessed     ?          1 -     0.000 s      
+[17]  top.tc_checker_inst.chk_no_increment_when_full                                     unprocessed     ?          1 -     0.000 s      
+[18]  top.tc_checker_inst.chk_no_increment_when_full:precondition1                       unprocessed     ?          1 -     0.000 s      
+[19]  top.tc_checker_inst.chk_no_increment_when_empty                                    unprocessed     ?          1 -     0.000 s      
+[20]  top.tc_checker_inst.chk_no_increment_when_empty:precondition1                      unprocessed     ?          1 -     0.000 s      
+[21]  top.tc_checker_inst.chk_fv_same_w_ptr_on_no_write                                  unprocessed     ?          1 -     0.000 s      
+[22]  top.tc_checker_inst.chk_fv_same_w_ptr_on_no_write:precondition1                    unprocessed     ?          1 -     0.000 s      
+[23]  top.tc_checker_inst.chk_fv_same_r_ptr_on_no_read                                   unprocessed     ?          1 -     0.000 s      
+[24]  top.tc_checker_inst.chk_fv_same_r_ptr_on_no_read:precondition1                     unprocessed     ?          1 -     0.000 s      
+[25]  top.tc_checker_inst.chk_wgray_onehot0                                              unprocessed     ?          1 -     0.000 s      
+[26]  top.tc_checker_inst.chk_wgray_onehot0:precondition1                                unprocessed     ?          1 -     0.000 s      
+[27]  top.tc_checker_inst.chk_rgray_onehot0                                              unprocessed     ?          1 -     0.000 s      
+[28]  top.tc_checker_inst.chk_rgray_onehot0:precondition1                                unprocessed     ?          1 -     0.000 s      
+[29]  top.tc_checker_inst.chk_wgray_correct_encoding                                     unprocessed     ?          1 -     0.000 s      
+[30]  top.tc_checker_inst.chk_rgray_correct_encoding                                     unprocessed     ?          1 -     0.000 s      
+[31]  top.tc_checker_inst.chk_fv_empty_when_occ_zero                                     unprocessed     ?          1 -     0.000 s      
+[32]  top.tc_checker_inst.chk_fv_empty_when_occ_zero:precondition1                       unprocessed     ?          1 -     0.000 s      
+[33]  top.tc_checker_inst.chk_fv_full_when_occ_depth                                     unprocessed     ?          1 -     0.000 s      
+[34]  top.tc_checker_inst.chk_fv_full_when_occ_depth:precondition1                       unprocessed     ?          1 -     0.000 s      
+[35]  top.tc_checker_inst.chk_fv_empty_deasserts_within_sync_lat                         unprocessed     ?          1 -     0.000 s      
+[36]  top.tc_checker_inst.chk_fv_empty_deasserts_within_sync_lat:precondition1           unprocessed     ?          1 -     0.000 s      
+[37]  top.tc_checker_inst.chk_fv_full_deasserts_within_sync_lat                          unprocessed     ?          1 -     0.000 s      
+[38]  top.tc_checker_inst.chk_fv_full_deasserts_within_sync_lat:precondition1            unprocessed     ?          1 -     0.000 s      
+[39]  top.tc_checker_inst.cov_full_after_empty                                           unprocessed     ?          1 -     0.000 s      
+[40]  top.tc_checker_inst.cov_empty_after_full                                           unprocessed     ?          1 -     0.000 s      
+[41]  top.tc_checker_inst.cov_fv_data_captured                                           unprocessed     ?          1 -     0.000 s      
+[42]  top.tc_checker_inst.cov_fv_data_checked                                            unprocessed     ?          1 -     0.000 s      
+[43]  top.tc_checker_inst.cov_fv_check_second_lap                                        unprocessed     ?          1 -     0.000 s      
+[44]  top.tc_checker_inst.cov_fv_wptr_wrap                                               unprocessed     ?          1 -     0.000 s      
+[45]  top.tc_checker_inst.cov_fv_rptr_wrap                                               unprocessed     ?          1 -     0.000 s      
+[46]  top.tc_checker_inst.cov_fv_empty_bound_tight                                       unprocessed     ?          1 -     0.000 s      
+[47]  top.tc_checker_inst.cov_fv_full_bound_tight                                        unprocessed     ?          1 -     0.000 s      
+[48]  top.tc_checker_inst.hlp_t2_no_overwrite_while_pending                              proven          I      Infinite    0.084 s      disabled
+[49]  top.tc_checker_inst.hlp_t2_no_overwrite_while_pending:precondition1                unprocessed     ?          1 -     0.000 s      
+[50]  top.tc_checker_inst.hlp_t1_slot_holds_tracked                                      unprocessed     ?          1 -     0.000 s      
+[51]  top.tc_checker_inst.hlp_t1_slot_holds_tracked:precondition1                        unprocessed     ?          1 -     0.000 s      
+[52]  top.tc_checker_inst.hlp_t3_check_reads_tracked_slot                                proven          C      Infinite    49.798 s     disabled
+[53]  top.tc_checker_inst.hlp_t3_check_reads_tracked_slot:precondition1                  unprocessed     ?          1 -     0.000 s      
+[54]  top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance                                 proven          Gcustom5  Infinite  25.433 s    disabled
+[55]  top.tc_checker_inst.hlp_h5_tracked_slot_in_window                                  proven          C      Infinite    126.278 s    disabled
+[56]  top.tc_checker_inst.hlp_h5_tracked_slot_in_window:precondition1                    unprocessed     ?          1 -     0.000 s      
+[57]  top.t1s_inst.t1s_range                                                             unprocessed     ?          1 -     0.000 s      
+[58]  top.t1s_inst.t1s_range:precondition1                                               unprocessed     ?          1 -     0.000 s      
+[59]  top.t1s_inst.g_slot[9].t1s                                                         proven          I      Infinite    78.364 s     
+[60]  top.t1s_inst.g_slot[9].t1s:precondition1                                           unprocessed     ?          1 -     0.000 s      
+[61]  top.t1s_inst.g_slot[10].t1s                                                        proven          I      Infinite    0.853 s      
+[62]  top.t1s_inst.g_slot[10].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[63]  top.t1s_inst.g_slot[11].t1s                                                        proven          I      Infinite    1.004 s      
+[64]  top.t1s_inst.g_slot[11].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[65]  top.t1s_inst.g_slot[12].t1s                                                        proven          I      Infinite    31.210 s     
+[66]  top.t1s_inst.g_slot[12].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[67]  top.t1s_inst.g_slot[13].t1s                                                        proven          I      Infinite    195.939 s    
+[68]  top.t1s_inst.g_slot[13].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[69]  top.t1s_inst.g_slot[14].t1s                                                        proven          C      Infinite    150.464 s    
+[70]  top.t1s_inst.g_slot[14].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[71]  top.t1s_inst.g_slot[15].t1s                                                        proven          I      Infinite    21.695 s     
+[72]  top.t1s_inst.g_slot[15].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[73]  top.t1s_inst.g_slot[16].t1s                                                        proven          I      Infinite    117.050 s    
+[74]  top.t1s_inst.g_slot[16].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[75]  top.t1s_inst.g_slot[17].t1s                                                        proven          I      Infinite    93.905 s     
+[76]  top.t1s_inst.g_slot[17].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[77]  top.t1s_inst.g_slot[18].t1s                                                        proven          I      Infinite    0.146 s      
+[78]  top.t1s_inst.g_slot[18].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[79]  top.t1s_inst.g_slot[19].t1s                                                        proven          I      Infinite    0.295 s      
+[80]  top.t1s_inst.g_slot[19].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[81]  top.t1s_inst.g_slot[20].t1s                                                        proven          I      Infinite    35.595 s     
+[82]  top.t1s_inst.g_slot[20].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[83]  top.t1s_inst.g_slot[21].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[84]  top.t1s_inst.g_slot[21].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[85]  top.t1s_inst.g_slot[22].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[86]  top.t1s_inst.g_slot[22].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[87]  top.t1s_inst.g_slot[23].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[88]  top.t1s_inst.g_slot[23].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[89]  top.t1s_inst.g_slot[24].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[90]  top.t1s_inst.g_slot[24].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[91]  top.t1s_inst.g_slot[25].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[92]  top.t1s_inst.g_slot[25].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[93]  top.t1s_inst.g_slot[26].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[94]  top.t1s_inst.g_slot[26].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[95]  top.t1s_inst.g_slot[27].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[96]  top.t1s_inst.g_slot[27].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[97]  top.t1s_inst.g_slot[28].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[98]  top.t1s_inst.g_slot[28].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[99]  top.t1s_inst.g_slot[29].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[100] top.t1s_inst.g_slot[29].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[101] top.t1s_inst.g_slot[30].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[102] top.t1s_inst.g_slot[30].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[103] top.t1s_inst.g_slot[31].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[104] top.t1s_inst.g_slot[31].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[105] top.t1s_inst.g_slot[32].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[106] top.t1s_inst.g_slot[32].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[107] top.t1s_inst.g_slot[33].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[108] top.t1s_inst.g_slot[33].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[109] top.t1s_inst.g_slot[34].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[110] top.t1s_inst.g_slot[34].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[111] top.t1s_inst.g_slot[35].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[112] top.t1s_inst.g_slot[35].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[113] top.t1s_inst.g_slot[36].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[114] top.t1s_inst.g_slot[36].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[115] top.t1s_inst.g_slot[37].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[116] top.t1s_inst.g_slot[37].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[117] top.t1s_inst.g_slot[38].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[118] top.t1s_inst.g_slot[38].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[119] top.t1s_inst.g_slot[39].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[120] top.t1s_inst.g_slot[39].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[121] top.t1s_inst.g_slot[40].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[122] top.t1s_inst.g_slot[40].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[123] top.t1s_inst.g_slot[41].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[124] top.t1s_inst.g_slot[41].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[125] top.t1s_inst.g_slot[42].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[126] top.t1s_inst.g_slot[42].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[127] top.t1s_inst.g_slot[43].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[128] top.t1s_inst.g_slot[43].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[129] top.t1s_inst.g_slot[44].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[130] top.t1s_inst.g_slot[44].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[131] top.t1s_inst.g_slot[45].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[132] top.t1s_inst.g_slot[45].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[133] top.t1s_inst.g_slot[46].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[134] top.t1s_inst.g_slot[46].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[135] top.t1s_inst.g_slot[47].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[136] top.t1s_inst.g_slot[47].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[137] top.t1s_inst.g_slot[48].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[138] top.t1s_inst.g_slot[48].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[139] top.t1s_inst.g_slot[49].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[140] top.t1s_inst.g_slot[49].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[141] top.t1s_inst.g_slot[50].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[142] top.t1s_inst.g_slot[50].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[143] top.t1s_inst.g_slot[51].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[144] top.t1s_inst.g_slot[51].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[145] top.t1s_inst.g_slot[52].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[146] top.t1s_inst.g_slot[52].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[147] top.t1s_inst.g_slot[53].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[148] top.t1s_inst.g_slot[53].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[149] top.t1s_inst.g_slot[54].t1s                                                        unprocessed     ?          1 -     0.000 s      
+[150] top.t1s_inst.g_slot[54].t1s:precondition1                                          unprocessed     ?          1 -     0.000 s      
+[151] top.t1s_inst.cov_t1s_pending                                                       unprocessed     ?          1 -     0.000 s      
+
+==============================================================
+ASSUMPTIONS
+==============================================================
+
+-------------------------------------------------------------------------------
+       Name    |  Expression  |  Location     |  Status      |  Dependencies                  
+-------------------------------------------------------------------------------
+[1]   <embedded>::top.tc_checker_inst.chk_fv_asm_stable_tag  tc_checker_inst.chk_fv_asm_stable_tag  N/A temporary
+[2]   <embedded>::top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance:assume  tc_checker_inst.hlp_h0_occ_equals_ptr_distance  N/A temporary
+[3]   <embedded>::top.tc_checker_inst.hlp_h5_tracked_slot_in_window:assume  tc_checker_inst.hlp_h5_tracked_slot_in_window  N/A temporary
+[4]   <embedded>::top.tc_checker_inst.hlp_t3_check_reads_tracked_slot:assume  tc_checker_inst.hlp_t3_check_reads_tracked_slot  N/A temporary
+[5]   <embedded>::top.tc_checker_inst.hlp_t2_no_overwrite_while_pending:assume  tc_checker_inst.hlp_t2_no_overwrite_while_pending  N/A temporary

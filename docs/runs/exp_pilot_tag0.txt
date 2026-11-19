@@ -1,0 +1,59 @@
+
+==============================================================
+    Jasper Verification Results
+==============================================================
+    2026.06 FCS 64 bits for Linux64 4.18.0-372.26.1.el8_6.x86_64
+    Host Name: deimos.ece.pdx.edu
+    User Name: aravindh
+    Printed on: Thursday, Nov 5, 2026 08:51:04 PM PST
+    Working Directory: /home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv
+
+
+==============================================================
+RESULTS
+==============================================================
+
+---------------------------------------------------------------------------------------------------------------------------------
+       Name                                                                     |    Result    |  Engine  |  Bound  |  Time    
+---------------------------------------------------------------------------------------------------------------------------------
+
+---[ <embedded> ]----------------------------------------------------------------------------------------------------------------
+[1]   top.w_inst._assert_1                                                           unprocessed     ?          1 -     0.000 s      
+[2]   top.w_inst._assert_1:precondition1                                             unprocessed     ?          1 -     0.000 s      
+[3]   top.r_inst._assert_1                                                           unprocessed     ?          1 -     0.000 s      
+[4]   top.r_inst._assert_1:precondition1                                             unprocessed     ?          1 -     0.000 s      
+[5]   top.exp_checker_inst.chk_data_match                                            proven          C      Infinite    12.672 s     
+[6]   top.exp_checker_inst.chk_data_match:precondition1                              unprocessed     ?          1 -     0.000 s      
+[7]   top.exp_checker_inst.hlp_l1_wptr_tracks_wrseq                                  proven          G      Infinite    0.940 s      disabled
+[8]   top.exp_checker_inst.hlp_l2_rptr_tracks_rdseq                                  proven          G      Infinite    0.969 s      disabled
+[9]   top.exp_checker_inst.hlp_h0_occ_equals_ptr_distance                            proven          G      Infinite    1.259 s      disabled
+[10]  top.exp_checker_inst.hlp_lslot_read_hits_tag_slot                              proven          G2     Infinite    0.958 s      disabled
+[11]  top.exp_checker_inst.hlp_lslot_read_hits_tag_slot:precondition1                unprocessed     ?          1 -     0.000 s      
+[12]  top.exp_checker_inst.hlp_m1_tag_slot_holds_data                                proven          G2     Infinite    1.578 s      disabled
+[13]  top.exp_checker_inst.hlp_m1_tag_slot_holds_data:precondition1                  unprocessed     ?          1 -     0.000 s      
+[14]  top.exp_checker_inst.hlp_m2_no_overwrite_while_pending                         proven          G      Infinite    0.100 s      disabled
+[15]  top.exp_checker_inst.hlp_m2_no_overwrite_while_pending:precondition1           unprocessed     ?          1 -     0.000 s      
+[16]  top.exp_checker_inst.cov_vac_pending                                           unprocessed     ?          1 -     0.000 s      
+[17]  top.exp_checker_inst.cov_vac_pending_and_write                                 unprocessed     ?          1 -     0.000 s      
+[18]  top.exp_checker_inst.cov_vac_capture                                           unprocessed     ?          1 -     0.000 s      
+[19]  top.exp_checker_inst.cov_vac_check                                             unprocessed     ?          1 -     0.000 s      
+[20]  top.exp_checker_inst.cov_vac_check_second_lap                                  unprocessed     ?          1 -     0.000 s      
+[21]  top.exp_checker_inst.cov_vac_wrap_w                                            unprocessed     ?          1 -     0.000 s      
+[22]  top.exp_checker_inst.cov_vac_full                                              unprocessed     ?          1 -     0.000 s      
+
+==============================================================
+ASSUMPTIONS
+==============================================================
+
+-------------------------------------------------------------------------------
+       Name    |  Expression  |  Location     |  Status      |  Dependencies                  
+-------------------------------------------------------------------------------
+[1]   <embedded>::top.exp_checker_inst.asm_stable_tag  exp_checker_inst.asm_stable_tag  N/A temporary
+[2]   <embedded>::top.exp_checker_inst.asm_tag_in_range  exp_checker_inst.asm_tag_in_range  N/A temporary
+[3]   <embedded>::top.exp_checker_inst.asm_tag_fixed  exp_checker_inst.asm_tag_fixed  N/A temporary
+[4]   <embedded>::top.exp_checker_inst.hlp_l1_wptr_tracks_wrseq:assume  exp_checker_inst.hlp_l1_wptr_tracks_wrseq  N/A temporary
+[5]   <embedded>::top.exp_checker_inst.hlp_l2_rptr_tracks_rdseq:assume  exp_checker_inst.hlp_l2_rptr_tracks_rdseq  N/A temporary
+[6]   <embedded>::top.exp_checker_inst.hlp_h0_occ_equals_ptr_distance:assume  exp_checker_inst.hlp_h0_occ_equals_ptr_distance  N/A temporary
+[7]   <embedded>::top.exp_checker_inst.hlp_lslot_read_hits_tag_slot:assume  exp_checker_inst.hlp_lslot_read_hits_tag_slot  N/A temporary
+[8]   <embedded>::top.exp_checker_inst.hlp_m2_no_overwrite_while_pending:assume  exp_checker_inst.hlp_m2_no_overwrite_while_pending  N/A temporary
+[9]   <embedded>::top.exp_checker_inst.hlp_m1_tag_slot_holds_data:assume  exp_checker_inst.hlp_m1_tag_slot_holds_data  N/A temporary

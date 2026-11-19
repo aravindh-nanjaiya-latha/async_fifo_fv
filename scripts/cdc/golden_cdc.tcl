@@ -1,6 +1,26 @@
 #=============================================================================
 #  golden_cdc.tcl -- Jasper CDC App run on the GOLDEN async FIFO
 #
+#  CDC IN PLAIN WORDS (for readers new to it)
+#    A clock-domain crossing (CDC) is any signal launched by a flop on one clock
+#    and captured by a flop on another, unrelated clock. If the data changes too
+#    close to the capturing edge, the capturing flop can go "metastable" (settle
+#    late, to a random value). Safe designs pass such signals through a
+#    SYNCHRONISER (2 flops in a row on the destination clock) and, for multi-bit
+#    values like pointers, use GRAY CODE so only one bit changes at a time.
+#    The Jasper CDC App checks this STRUCTURALLY (from the netlist, no stimulus):
+#      pair      = one source-flop -> destination-flop crossing it found
+#      scheme    = a recognised safe structure (here: a FIFO scheme)
+#      violation = a crossing or structure that breaks a rule
+#      waiver    = a violation closed with a written, cited justification
+#    and FUNCTIONALLY, by formally proving protocol properties around each
+#    scheme (e.g. "no pop while empty").
+#
+#  This script is the validated reference: every setting below was debugged on
+#  the known-good golden FIFO first (0 errors), then reused unchanged in
+#  scripts/cdc/afifo_cdc.tcl. The full story of each decision is in
+#  docs/cdc/CDC_APPROACH.md.
+#
 #  DUT : golden_fifo/golden_afifo.sv, top "gold_top"
 #        depth 16 (AW=4, DW=8), gray-coded pointers, 2-FF synchronizers,
 #        registered read (data_out <= mem[r_ptr]).
@@ -96,7 +116,7 @@ config_rtlds -rule -parameter {fifo_detection = true}
 #      two set bits and fails, although both behaved correctly. If it is ever
 #      needed, declare them one per command.
 #
-# NOTE FOR THE STUDENT RTL: the tool BELIEVES signal configurations, it does
+# NOTE FOR THE BASELINE FIFO RTL: the tool BELIEVES signal configurations, it does
 # not prove them. There the wrap gray(53)->gray(9) changes two bits, so
 # declaring those pointers gray-coded would assert something false and
 # auto-waive the very convergence violation that exposes it. Do not declare
@@ -170,11 +190,11 @@ if {[dict size $pairs] == 0} {
 # internal net rgray without the port restriction that blocks -scheme -map.
 #
 # Why this is not a disguised assumption: an assumption deletes traces from
-# the proof (assuming !(r_en && empty) would make student Bug 3 unreachable).
+# the proof (assuming !(r_en && empty) would make Bug 3 unreachable).
 # This adds no constraint; it asserts and proves the design's own guard.
 #
 # Why it transfers: the condition is "the pointer did not move", not "the
-# guard expression is true", so it is not a tautology. Student Bug 3
+# guard expression is true", so it is not a tautology. Bug 3
 # (b_rptr_next = (b_rptr==0x36) ? 0x09 : b_rptr + (r_en & ~empty) -- the wrap
 # branch is ungated) moves the pointer while empty and should CEX here.
 #

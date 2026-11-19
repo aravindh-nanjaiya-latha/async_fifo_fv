@@ -1,3 +1,12 @@
+# ##############################################################################
+# NOTE FOR READERS OF THIS REPO
+#   This file is a REFERENCE TEMPLATE, not part of the verification flow. It is
+#   never run: it uses placeholder files (design.sv, sample.lib, cdc.def,
+#   design.sdc) and module names (ip_block1, ...). It is the author's own
+#   annotated summary of the Jasper CDC/RDC options, kept as a cheat sheet.
+#   The scripts that actually run are scripts/cdc/golden_cdc.tcl and
+#   scripts/cdc/afifo_cdc.tcl.
+# ##############################################################################
 # ==============================================================================
 # MASTER REFERENCE TCL FOR JASPER CDC / RDC RUNS
 # ==============================================================================

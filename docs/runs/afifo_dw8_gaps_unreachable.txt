@@ -1,0 +1,18 @@
+# status 'unreachable' -- PROVEN not reachable under the environment -- NOT automatically dead RTL; justify each
+# count: 16
+expression ~r_inst.rrst_n source_location (32,9)-(32,29) tasks {{name <embedded> prove_status Unreachable}}
+expression ~sync_instW.rst source_location (16,14)-(19,8) tasks {{name <embedded> prove_status Unreachable}}
+expression ~r_inst.rrst_n source_location (33,9)-(33,29) tasks {{name <embedded> prove_status Unreachable}}
+expression ~sync_instW.rst source_location (17,9)-(17,23) tasks {{name <embedded> prove_status Unreachable}}
+expression ~r_inst.rrst_n source_location (34,9)-(34,20) tasks {{name <embedded> prove_status Unreachable}}
+expression ~sync_instW.rst source_location (18,9)-(18,21) tasks {{name <embedded> prove_status Unreachable}}
+expression ~f_memory_inst.arstn source_location (17,13)-(17,28) tasks {{name <embedded> prove_status Unreachable}}
+expression ~w_inst.wrst_n source_location (47,22)-(50,12) tasks {{name <embedded> prove_status Unreachable}}
+expression ~sync_instR.rst source_location (16,14)-(19,8) tasks {{name <embedded> prove_status Unreachable}}
+expression ~w_inst.wrst_n source_location (48,13)-(48,28) tasks {{name <embedded> prove_status Unreachable}}
+expression ~f_memory_inst.arstn source_location (15,16)-(19,8) tasks {{name <embedded> prove_status Unreachable}}
+expression ~sync_instR.rst source_location (17,9)-(17,23) tasks {{name <embedded> prove_status Unreachable}}
+expression ~w_inst.wrst_n source_location (49,13)-(49,33) tasks {{name <embedded> prove_status Unreachable}}
+expression ~sync_instR.rst source_location (18,9)-(18,21) tasks {{name <embedded> prove_status Unreachable}}
+expression ~r_inst.rrst_n source_location (31,18)-(35,8) tasks {{name <embedded> prove_status Unreachable}}
+expression ~w_inst.wrst_n source_location (67,9)-(67,19) tasks {{name <embedded> prove_status Unreachable}}

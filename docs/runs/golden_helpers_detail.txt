@@ -1,0 +1,92 @@
+
+==============================================================
+    Jasper Verification Results
+==============================================================
+    2026.06 FCS 64 bits for Linux64 4.18.0-372.26.1.el8_6.x86_64
+    Host Name: deimos.ece.pdx.edu
+    User Name: aravindh
+    Printed on: Wednesday, Nov11, 2026 08:51:10 PM PST
+    Working Directory: /home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv
+
+
+==============================================================
+RESULTS
+==============================================================
+
+------------------------------------------------------------------------------------------------------------------------------------------
+       Name                                                                              |    Result    |  Engine  |  Bound  |  Time    
+------------------------------------------------------------------------------------------------------------------------------------------
+
+---[ <embedded> ]-------------------------------------------------------------------------------------------------------------------------
+[1]   gold_top.tc_checker_inst.chk_fv_empty_after_reset                                       proven          PRE    Infinite    0.000 s      
+[2]   gold_top.tc_checker_inst.chk_fv_empty_after_reset:precondition1                         covered         Hp            1    0.018 s      
+[3]   gold_top.tc_checker_inst.chk_fv_no_full_after_reset                                     proven          PRE    Infinite    0.000 s      
+[4]   gold_top.tc_checker_inst.chk_fv_no_full_after_reset:precondition1                       covered         Hp            1    0.018 s      
+[5]   gold_top.tc_checker_inst.chk_fv_stable_dout                                             proven          N      Infinite    0.024 s      
+[6]   gold_top.tc_checker_inst.chk_fv_stable_dout:precondition1                               covered         Hp            1    0.018 s      
+[7]   gold_top.tc_checker_inst.chk_data_match                                                 proven          Hp     Infinite    0.026 s      
+[8]   gold_top.tc_checker_inst.chk_data_match:precondition1                                   covered         Ht            5    0.018 s      
+[9]   gold_top.tc_checker_inst.chk_wrptr                                                      proven          N      Infinite    0.019 s      
+[10]  gold_top.tc_checker_inst.chk_wrptr:precondition1                                        covered         PRE           1    0.000 s      
+[11]  gold_top.tc_checker_inst.chk_rptr                                                       proven          N      Infinite    0.020 s      
+[12]  gold_top.tc_checker_inst.chk_rptr:precondition1                                         covered         Ht            5    0.020 s      
+[13]  gold_top.tc_checker_inst.chk_wbin                                                       proven          N      Infinite    0.018 s      
+[14]  gold_top.tc_checker_inst.chk_wbin:precondition1                                         covered         PRE           1    0.000 s      
+[15]  gold_top.tc_checker_inst.chk_rbin                                                       proven          Hp     Infinite    0.137 s      
+[16]  gold_top.tc_checker_inst.chk_rbin:precondition1                                         covered         Ht            5    0.020 s      
+[17]  gold_top.tc_checker_inst.chk_no_increment_when_full                                     proven          Hp     Infinite    0.137 s      
+[18]  gold_top.tc_checker_inst.chk_no_increment_when_full:precondition1                       covered         Ht           17    0.117 s      
+[19]  gold_top.tc_checker_inst.chk_no_increment_when_empty                                    proven          Hp     Infinite    0.137 s      
+[20]  gold_top.tc_checker_inst.chk_no_increment_when_empty:precondition1                      covered         PRE           1    0.000 s      
+[21]  gold_top.tc_checker_inst.chk_wgray_onehot0                                              proven          Hp     Infinite    0.189 s      
+[22]  gold_top.tc_checker_inst.chk_wgray_onehot0:precondition1                                covered         Ht            2    0.007 s      
+[23]  gold_top.tc_checker_inst.chk_rgray_onehot0                                              proven          Hp     Infinite    0.189 s      
+[24]  gold_top.tc_checker_inst.chk_rgray_onehot0:precondition1                                covered         Ht            2    0.007 s      
+[25]  gold_top.tc_checker_inst.chk_wgray_correct_encoding                                     proven          PRE    Infinite    0.000 s      
+[26]  gold_top.tc_checker_inst.chk_rgray_correct_encoding                                     proven          PRE    Infinite    0.000 s      
+[27]  gold_top.tc_checker_inst.cov_full_after_empty                                           covered         Ht           17    0.117 s      
+[28]  gold_top.tc_checker_inst.cov_empty_after_full                                           covered         B            30    0.139 s      
+[29]  gold_top.tc_checker_inst.chk_fv_same_w_ptr_on_no_write                                  proven          Hp     Infinite    0.138 s      
+[30]  gold_top.tc_checker_inst.chk_fv_same_w_ptr_on_no_write:precondition1                    covered         Hp            1    0.022 s      
+[31]  gold_top.tc_checker_inst.chk_fv_same_wbin_on_no_write                                   proven          Hp     Infinite    0.138 s      
+[32]  gold_top.tc_checker_inst.chk_fv_same_wbin_on_no_write:precondition1                     covered         Hp            1    0.022 s      
+[33]  gold_top.tc_checker_inst.chk_fv_same_r_ptr_on_no_read                                   proven          Hp     Infinite    0.138 s      
+[34]  gold_top.tc_checker_inst.chk_fv_same_r_ptr_on_no_read:precondition1                     covered         Hp            1    0.018 s      
+[35]  gold_top.tc_checker_inst.chk_fv_same_rbin_on_no_read                                    proven          Hp     Infinite    0.138 s      
+[36]  gold_top.tc_checker_inst.chk_fv_same_rbin_on_no_read:precondition1                      covered         Hp            1    0.018 s      
+[37]  gold_top.tc_checker_inst.cov_fv_data_captured                                           covered         Ht            2    0.011 s      
+[38]  gold_top.tc_checker_inst.cov_fv_data_checked                                            covered         Ht            5    0.020 s      
+[39]  gold_top.tc_checker_inst.cov_fv_wptr_wrap                                               covered         Ht           17    0.120 s      
+[40]  gold_top.tc_checker_inst.cov_fv_rptr_wrap                                               covered         Ht           21    0.154 s      
+[41]  gold_top.tc_checker_inst.chk_fv_empty_deasserts_within_sync_lat                         proven          Hp     Infinite    0.283 s      
+[42]  gold_top.tc_checker_inst.chk_fv_empty_deasserts_within_sync_lat:precondition1           covered         Ht            2    0.007 s      
+[43]  gold_top.tc_checker_inst.chk_fv_full_deasserts_within_sync_lat                          proven          Hp     Infinite    0.283 s      
+[44]  gold_top.tc_checker_inst.chk_fv_full_deasserts_within_sync_lat:precondition1            covered         Ht           17    0.120 s      
+[45]  gold_top.tc_checker_inst.chk_fv_empty_when_occ_zero                                     proven          Hp     Infinite    5.489 s      
+[46]  gold_top.tc_checker_inst.chk_fv_empty_when_occ_zero:precondition1                       covered         Hp            1    0.018 s      
+[47]  gold_top.tc_checker_inst.chk_fv_full_when_occ_depth                                     proven          N      Infinite    3.349 s      
+[48]  gold_top.tc_checker_inst.chk_fv_full_when_occ_depth:precondition1                       covered         Ht           17    0.123 s      
+[49]  gold_top.tc_helpers_inst.H_range_w                                                      proven          PRE    Infinite    0.000 s      
+[50]  gold_top.tc_helpers_inst.H_range_r                                                      proven          PRE    Infinite    0.000 s      
+[51]  gold_top.tc_helpers_inst.H_occ_w                                                        proven          Hp     Infinite    0.054 s      
+[52]  gold_top.tc_helpers_inst.H_occ_r                                                        proven          Hp     Infinite    0.055 s      
+[53]  gold_top.tc_helpers_inst.H_mem_w                                                        proven          Hp     Infinite    0.242 s      
+[54]  gold_top.tc_helpers_inst.H_mem_w:precondition1                                          covered         Ht            2    0.011 s      
+[55]  gold_top.tc_helpers_inst.H_mem_r                                                        proven          Hp     Infinite    0.243 s      
+[56]  gold_top.tc_helpers_inst.H_mem_r:precondition1                                          covered         Ht            2    0.011 s      
+[57]  gold_top.tc_helpers_inst.H_post_w                                                       proven          Hp     Infinite    0.043 s      
+[58]  gold_top.tc_helpers_inst.H_post_w:precondition1                                         covered         Ht            6    0.036 s      
+[59]  gold_top.tc_helpers_inst.H_post_r                                                       proven          Hp     Infinite    0.043 s      
+[60]  gold_top.tc_helpers_inst.H_post_r:precondition1                                         covered         Ht            6    0.036 s      
+[61]  gold_top.tc_helpers_inst.cov_h_in_flight_deep                                           covered         Ht           17    0.125 s      
+[62]  gold_top.tc_helpers_inst.cov_h_in_flight_wrapped                                        covered         Ht           18    0.137 s      
+[63]  gold_top.tc_helpers_inst.cov_h_post                                                     covered         Ht            6    0.036 s      
+
+==============================================================
+ASSUMPTIONS
+==============================================================
+
+-------------------------------------------------------------------------------
+       Name    |  Expression  |  Location     |  Status      |  Dependencies                  
+-------------------------------------------------------------------------------
+[1]   <embedded>::gold_top.tc_checker_inst.chk_fv_asm_stable_tag  tc_checker_inst.chk_fv_asm_stable_tag  N/A temporary

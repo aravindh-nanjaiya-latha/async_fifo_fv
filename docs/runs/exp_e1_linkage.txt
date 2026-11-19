@@ -1,0 +1,52 @@
+
+==============================================================
+    Jasper Verification Results
+==============================================================
+    2026.06 FCS 64 bits for Linux64 4.18.0-372.26.1.el8_6.x86_64
+    Host Name: deimos.ece.pdx.edu
+    User Name: aravindh
+    Printed on: Thursday, Nov 5, 2026 07:37:54 PM PST
+    Working Directory: /home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv
+
+
+==============================================================
+RESULTS
+==============================================================
+
+---------------------------------------------------------------------------------------------------------------------------------
+       Name                                                                     |    Result    |  Engine  |  Bound  |  Time    
+---------------------------------------------------------------------------------------------------------------------------------
+
+---[ <embedded> ]----------------------------------------------------------------------------------------------------------------
+[1]   top.w_inst._assert_1                                                           unprocessed     ?          1 -     0.000 s      
+[2]   top.w_inst._assert_1:precondition1                                             unprocessed     ?          1 -     0.000 s      
+[3]   top.r_inst._assert_1                                                           unprocessed     ?          1 -     0.000 s      
+[4]   top.r_inst._assert_1:precondition1                                             unprocessed     ?          1 -     0.000 s      
+[5]   top.exp_checker_inst.chk_data_match                                            unprocessed     ?          1 -     0.000 s      
+[6]   top.exp_checker_inst.chk_data_match:precondition1                              unprocessed     ?          1 -     0.000 s      
+[7]   top.exp_checker_inst.hlp_l1_wptr_tracks_wrseq                                  proven          C      Infinite    0.075 s      
+[8]   top.exp_checker_inst.hlp_l2_rptr_tracks_rdseq                                  proven          C      Infinite    0.020 s      
+[9]   top.exp_checker_inst.hlp_h0_occ_equals_ptr_distance                            unprocessed     ?          1 -     0.000 s      
+[10]  top.exp_checker_inst.hlp_lslot_read_hits_tag_slot                              unprocessed     ?          1 -     0.000 s      
+[11]  top.exp_checker_inst.hlp_lslot_read_hits_tag_slot:precondition1                unprocessed     ?          1 -     0.000 s      
+[12]  top.exp_checker_inst.hlp_m1_tag_slot_holds_data                                unprocessed     ?          1 -     0.000 s      
+[13]  top.exp_checker_inst.hlp_m1_tag_slot_holds_data:precondition1                  unprocessed     ?          1 -     0.000 s      
+[14]  top.exp_checker_inst.hlp_m2_no_overwrite_while_pending                         unprocessed     ?          1 -     0.000 s      
+[15]  top.exp_checker_inst.hlp_m2_no_overwrite_while_pending:precondition1           unprocessed     ?          1 -     0.000 s      
+[16]  top.exp_checker_inst.cov_vac_pending                                           covered         C             2    0.049 s      
+[17]  top.exp_checker_inst.cov_vac_pending_and_write                                 covered         C             2    0.049 s      
+[18]  top.exp_checker_inst.cov_vac_capture                                           covered         C             2    0.049 s      
+[19]  top.exp_checker_inst.cov_vac_check                                             covered         C             5    0.001 s      
+[20]  top.exp_checker_inst.cov_vac_check_second_lap                                  unprocessed     ?          1 -     0.000 s      
+[21]  top.exp_checker_inst.cov_vac_wrap_w                                            covered         C            47    0.387 s      
+[22]  top.exp_checker_inst.cov_vac_full                                              covered         Hp           46    1.311 s      
+
+==============================================================
+ASSUMPTIONS
+==============================================================
+
+-------------------------------------------------------------------------------
+       Name    |  Expression  |  Location     |  Status      |  Dependencies                  
+-------------------------------------------------------------------------------
+[1]   <embedded>::top.exp_checker_inst.asm_stable_tag  exp_checker_inst.asm_stable_tag  N/A temporary
+[2]   <embedded>::top.exp_checker_inst.asm_tag_in_range  exp_checker_inst.asm_tag_in_range  N/A temporary

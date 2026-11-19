@@ -1,0 +1,18 @@
+# ----------------------------------------
+# Jasper Version Info
+# tool      : Jasper 2026.06
+# platform  : Linux 5.14.0-687.59.1.el9_8.x86_64
+# version   : 2026.06 FCS 64 bits
+# build date: 2026.06.30 13:31:21 UTC
+# ----------------------------------------
+# started   : 2026-11-05 12:18:31 PST
+# hostname  : deimos.ece.pdx.edu.(none)
+# pid       : 238163
+# arguments : '-label' 'session_0' '-console' '//127.0.0.1:34821' '-style' 'windows' '-data' 'AAAAZXicY2BgYGJgZGBgsKn///8/AxgwPoDQDDaMDKgAxGdCFQlsQKEZGFgZ0AEjANo5Boc=' '-bridge_url' '10.218.207.117:40759' '-proj' '/home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/jgproject/sessionLogs/session_0' '-init' '-hidden' '/home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/jgproject/.tmp/.initCmds.tcl'
+set NOPROVE 1
+include scripts/afifo/fv_afifo.tcl
+set_proofgrid_max_local_jobs 4
+set_proofgrid_engineL_max_jobs 0
+set_proofgrid_engineJ_max_jobs 0
+prove -property {top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance} -engine_mode {Hp N Ht}
+prove -property {top.tc_checker_inst.hlp_h5_tracked_slot_in_window} -engine_mode {Hp N Ht}

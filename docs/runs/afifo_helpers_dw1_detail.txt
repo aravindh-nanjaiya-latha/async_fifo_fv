@@ -1,0 +1,91 @@
+
+==============================================================
+    Jasper Verification Results
+==============================================================
+    2026.06 FCS 64 bits for Linux64 4.18.0-372.26.1.el8_6.x86_64
+    Host Name: deimos.ece.pdx.edu
+    User Name: aravindh
+    Printed on: Wednesday, Nov18, 2026 04:55:23 PM PST
+    Working Directory: /home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/scripts/afifo
+
+
+==============================================================
+RESULTS
+==============================================================
+
+-------------------------------------------------------------------------------------------------------------------------------------
+       Name                                                                         |    Result    |  Engine  |  Bound  |  Time    
+-------------------------------------------------------------------------------------------------------------------------------------
+
+---[ <embedded> ]--------------------------------------------------------------------------------------------------------------------
+[1]   top.w_inst._assert_1                                                               proven          PRE    Infinite    0.000 s      
+[2]   top.w_inst._assert_1:precondition1                                                 covered         Hp            1    0.009 s      
+[3]   top.r_inst._assert_1                                                               proven          PRE    Infinite    0.000 s      
+[4]   top.r_inst._assert_1:precondition1                                                 covered         Hp            1    0.009 s      
+[5]   top.tc_checker_inst.chk_fv_empty_after_reset                                       proven          PRE    Infinite    0.000 s      
+[6]   top.tc_checker_inst.chk_fv_empty_after_reset:precondition1                         covered         Hp            1    0.009 s      
+[7]   top.tc_checker_inst.chk_fv_no_full_after_reset                                     proven          PRE    Infinite    0.000 s      
+[8]   top.tc_checker_inst.chk_fv_no_full_after_reset:precondition1                       covered         Hp            1    0.009 s      
+[9]   top.tc_checker_inst.chk_fv_stable_dout                                             proven          N      Infinite    0.023 s      
+[10]  top.tc_checker_inst.chk_fv_stable_dout:precondition1                               covered         Hp            1    0.009 s      
+[11]  top.tc_checker_inst.chk_data_match                                                 proven          Hp     Infinite    0.002 s      
+[12]  top.tc_checker_inst.chk_data_match:precondition1                                   covered         Ht            5    0.014 s      
+[13]  top.tc_checker_inst.chk_wrptr                                                      proven          N      Infinite    0.031 s      
+[14]  top.tc_checker_inst.chk_wrptr:precondition1                                        covered         PRE           1    0.000 s      
+[15]  top.tc_checker_inst.chk_rptr                                                       proven          N      Infinite    0.043 s      
+[16]  top.tc_checker_inst.chk_rptr:precondition1                                         covered         Ht            5    0.017 s      
+[17]  top.tc_checker_inst.chk_no_increment_when_full                                     proven          N      Infinite    0.033 s      
+[18]  top.tc_checker_inst.chk_no_increment_when_full:precondition1                       covered         Ht           46    2.696 s      
+[19]  top.tc_checker_inst.chk_no_increment_when_empty                                    proven          N      Infinite    0.016 s      
+[20]  top.tc_checker_inst.chk_no_increment_when_empty:precondition1                      covered         PRE           1    0.000 s      
+[21]  top.tc_checker_inst.chk_fv_same_w_ptr_on_no_write                                  proven          Hp     Infinite    0.216 s      
+[22]  top.tc_checker_inst.chk_fv_same_w_ptr_on_no_write:precondition1                    covered         Hp            1    0.017 s      
+[23]  top.tc_checker_inst.chk_fv_same_r_ptr_on_no_read                                   proven          Hp     Infinite    0.217 s      
+[24]  top.tc_checker_inst.chk_fv_same_r_ptr_on_no_read:precondition1                     covered         Hp            1    0.009 s      
+[25]  top.tc_checker_inst.chk_wgray_onehot0                                              proven          Hp     Infinite    0.219 s      
+[26]  top.tc_checker_inst.chk_wgray_onehot0:precondition1                                covered         Ht            2    0.003 s      
+[27]  top.tc_checker_inst.chk_rgray_onehot0                                              proven          N      Infinite    0.130 s      
+[28]  top.tc_checker_inst.chk_rgray_onehot0:precondition1                                covered         Ht            2    0.003 s      
+[29]  top.tc_checker_inst.chk_wgray_correct_encoding                                     proven          Hp     Infinite    0.221 s      
+[30]  top.tc_checker_inst.chk_rgray_correct_encoding                                     proven          PRE    Infinite    0.000 s      
+[31]  top.tc_checker_inst.chk_fv_empty_when_occ_zero                                     proven          Tri    Infinite    78.221 s     
+[32]  top.tc_checker_inst.chk_fv_empty_when_occ_zero:precondition1                       covered         Hp            1    0.009 s      
+[33]  top.tc_checker_inst.chk_fv_full_when_occ_depth                                     proven          Gcustom9  Infinite  25.510 s    
+[34]  top.tc_checker_inst.chk_fv_full_when_occ_depth:precondition1                       covered         B            46    0.290 s      
+[35]  top.tc_checker_inst.chk_fv_empty_deasserts_within_sync_lat                         proven          Hp     Infinite    0.483 s      
+[36]  top.tc_checker_inst.chk_fv_empty_deasserts_within_sync_lat:precondition1           covered         Ht            2    0.003 s      
+[37]  top.tc_checker_inst.chk_fv_full_deasserts_within_sync_lat                          proven          Hp     Infinite    0.490 s      
+[38]  top.tc_checker_inst.chk_fv_full_deasserts_within_sync_lat:precondition1            covered         Ht           46    2.720 s      
+[39]  top.tc_checker_inst.cov_full_after_empty                                           covered         B       40 - 46    0.290 s      
+[40]  top.tc_checker_inst.cov_empty_after_full                                           covered         Ht           89    31.617 s     
+[41]  top.tc_checker_inst.cov_fv_data_captured                                           covered         Ht            2    0.007 s      
+[42]  top.tc_checker_inst.cov_fv_data_checked                                            covered         Ht            5    0.017 s      
+[43]  top.tc_checker_inst.cov_fv_check_second_lap                                        covered         Ht           69    12.843 s     
+[44]  top.tc_checker_inst.cov_fv_wptr_wrap                                               covered         Ht           47    2.842 s      
+[45]  top.tc_checker_inst.cov_fv_rptr_wrap                                               covered         Ht           51    3.851 s      
+[46]  top.tc_checker_inst.cov_fv_empty_bound_tight                                       covered         Ht            5    0.014 s      
+[47]  top.tc_checker_inst.cov_fv_full_bound_tight                                        covered         Ht           48    2.935 s      
+[48]  top.tc_helpers_inst.H_range_w                                                      proven          N      Infinite    0.061 s      
+[49]  top.tc_helpers_inst.H_range_r                                                      proven          N      Infinite    0.068 s      
+[50]  top.tc_helpers_inst.H_occ_w                                                        proven          Hp     Infinite    0.309 s      
+[51]  top.tc_helpers_inst.H_occ_r                                                        proven          Hp     Infinite    0.310 s      
+[52]  top.tc_helpers_inst.H_mem_w                                                        proven          Hp     Infinite    1.059 s      
+[53]  top.tc_helpers_inst.H_mem_w:precondition1                                          covered         Ht            2    0.007 s      
+[54]  top.tc_helpers_inst.H_mem_r                                                        proven          Hp     Infinite    1.061 s      
+[55]  top.tc_helpers_inst.H_mem_r:precondition1                                          covered         Ht            2    0.007 s      
+[56]  top.tc_helpers_inst.H_post_w                                                       proven          Hp     Infinite    0.020 s      
+[57]  top.tc_helpers_inst.H_post_w:precondition1                                         covered         Ht            6    0.021 s      
+[58]  top.tc_helpers_inst.H_post_r                                                       proven          Hp     Infinite    0.022 s      
+[59]  top.tc_helpers_inst.H_post_r:precondition1                                         covered         Ht            6    0.021 s      
+[60]  top.tc_helpers_inst.cov_h_in_flight_deep                                           covered         Ht           46    2.730 s      
+[61]  top.tc_helpers_inst.cov_h_in_flight_wrapped                                        covered         Ht           48    3.014 s      
+[62]  top.tc_helpers_inst.cov_h_post                                                     covered         Ht            6    0.021 s      
+
+==============================================================
+ASSUMPTIONS
+==============================================================
+
+-------------------------------------------------------------------------------
+       Name    |  Expression  |  Location     |  Status      |  Dependencies                  
+-------------------------------------------------------------------------------
+[1]   <embedded>::top.tc_checker_inst.chk_fv_asm_stable_tag  tc_checker_inst.chk_fv_asm_stable_tag  N/A temporary

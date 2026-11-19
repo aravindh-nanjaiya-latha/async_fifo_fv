@@ -1,0 +1,12 @@
+Negative control for the golden-first helper run (2026-11-11, deimos)
+=====================================================================
+Script : scripts/golden/golden_helpers.tcl with ONE change -- the helper module analysed
+         WITHOUT +define+FV_MEM_ASCENDING, so its memory port is declared [15:0] while the
+         golden array is mem[0:15]. Unpacked arrays connect by position, so helper slot k
+         sees golden slot 15-k: a deliberately wrong slot mapping. Stages F..2 only.
+Result : H_range, H_occ   proven (they do not read the memory)
+         H_mem_w, H_mem_r  CEX, 2 cycles   <- the helper detects the wrong mapping
+Meaning: H_mem is not vacuous. It really checks the value in the tracked slot, and it
+         fails as soon as the slot mapping is wrong. With the correct mapping
+         (docs/runs/golden_helpers.txt) the same property is proven.
+Log    : docs/runs/golden_helpers_negctl.log

@@ -1,0 +1,948 @@
+# ----------------------------------------
+# Jasper Version Info
+# tool      : Jasper 2026.06
+# platform  : Linux 5.14.0-687.59.1.el9_8.x86_64
+# version   : 2026.06 FCS 64 bits
+# build date: 2026.06.30 13:31:21 UTC
+# ----------------------------------------
+# started   : 2026-11-05 12:18:31 PST
+# hostname  : deimos.ece.pdx.edu.(none)
+# pid       : 238163
+# arguments : '-label' 'session_0' '-console' '//127.0.0.1:34821' '-style' 'windows' '-data' 'AAAAZXicY2BgYGJgZGBgsKn///8/AxgwPoDQDDaMDKgAxGdCFQlsQKEZGFgZ0AEjANo5Boc=' '-bridge_url' '10.218.207.117:40759' '-proj' '/home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/jgproject/sessionLogs/session_0' '-init' '-hidden' '/home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/jgproject/.tmp/.initCmds.tcl'
+
+Any disclosure about the Cadence Design Systems software or its use
+model to any third party violates the written Non-Disclosure Agreement
+between Cadence Design Systems, Inc. and the customer.
+
+THIS SOFTWARE CONTAINS CONFIDENTIAL INFORMATION AND TRADE SECRETS OF
+CADENCE DESIGN SYSTEMS, INC. USE, DISCLOSURE, OR REPRODUCTION IS
+PROHIBITED WITHOUT THE PRIOR EXPRESS WRITTEN PERMISSION OF CADENCE
+DESIGN SYSTEMS, INC.
+
+Copyright (C) 2000-2026 Cadence Design Systems, Inc. All Rights
+Reserved.  Unpublished -- rights reserved under the copyright laws of
+the United States.
+
+This product includes software developed by others and redistributed
+according to license agreement. See doc/third_party_readme.txt for
+further details.
+
+RESTRICTED RIGHTS LEGEND
+
+Use, duplication, or disclosure by the Government is subject to
+restrictions as set forth in subparagraph (c) (1) (ii) of the Rights in
+Technical Data and Computer Software clause at DFARS 252.227-7013 or
+subparagraphs (c) (1) and (2) of Commercial Computer Software -- Restricted
+Rights at 48 CFR 52.227-19, as applicable.
+
+
+                          Cadence Design Systems, Inc.
+                          2655 Seely Avenue
+                          San Jose, CA 95134
+                          Phone: 408.943.1234
+
+For technical assistance visit http://support.cadence.com.
+
+Jasper Apps Analysis Session - /home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/jgproject/sessionLogs/session_0
+
+INFO: successfully checked out licenses "jasper_interactive" and "jasper_fao".
+INFO: reading configuration file "/u/aravindh/.config/cadence/jasper.conf".
+% set NOPROVE 1
+1
+% include scripts/afifo/fv_afifo.tcl
+%% #=============================================================================
+%% # fv_afifo.tcl -- FPV of the STUDENT async FIFO (rtl/, top `top`) with the same
+%% # checker flow that was proven on the golden FIFO (scripts/golden/golden_fifo.tcl).
+%% #
+%% # Run on baseline-renamed with rtl/ untouched: the results ARE the baseline.
+%% #
+%% # PREDICTIONS (written before the first run -- principle 1):
+%% #   CEX    chk_fv_empty_after_reset            Bug 1  (sync resets 0 vs gray(9))
+%% #   CEX    chk_fv_empty_when_occ_zero          Bug 1 / Bug 3b
+%% #   CEX    chk_fv_same_r_ptr_on_no_read        Bug 3  (ungated read wrap)   ~45+ cycles
+%% #   CEX    chk_fv_same_w_ptr_on_no_write       Bug 3b (ungated write wrap)  ~45  cycles
+%% #   CEX    chk_data_match                      Bug 3 / 3b
+%% #   CEX    chk_wgray_onehot0, chk_rgray_onehot0 Bug 4 (53->9 flips 2 bits)
+%% #   proven chk_*gray_correct_encoding, chk_fv_stable_dout, chk_fv_no_full_after_reset
+%% #   ?      bounded-response pair, occ==DEPTH_EFF -> full   (depends on Bug 1 / 3b reach)
+%% #=============================================================================
+%% clear -all
+INFO (IPF121): Cleared environment completely for new design analysis.
+%% 
+%% if {![info exists DW]} { set DW 8 }   ;# data width; override: set DW 2; include scripts/afifo/fv_afifo.tcl
+8
+%% puts "DW    = $DW"
+DW    = 8
+%% 
+%% set ROOT [exec git rev-parse --show-toplevel]   ;# same as the CDC script; info-script-relative paths broke before
+/home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv
+%% puts "ROOT  = $ROOT"
+ROOT  = /home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv
+%% puts "AFIFO = $ROOT/rtl"
+AFIFO = /home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/rtl
+%% 
+%% #--- analyze the RTL (leaf modules first, top last) -- rtl/ is PRISTINE, never edit it here
+%% analyze -sv09 $ROOT/rtl/fifo_mem.sv
+[-- (VERI-1482)] Analyzing Verilog file '/pkgs/cadence/2026-07/jasper_2026.06/lib/verilog/packages/std/std.sv' into library 'std'
+[-- (VERI-1482)] Analyzing Verilog file '/home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/rtl/fifo_mem.sv'
+%% analyze -sv09 $ROOT/rtl/read_ptr.sv
+[-- (VERI-1482)] Analyzing Verilog file '/home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/rtl/read_ptr.sv'
+%% analyze -sv09 $ROOT/rtl/synchronizer.sv
+[-- (VERI-1482)] Analyzing Verilog file '/home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/rtl/synchronizer.sv'
+%% analyze -sv09 $ROOT/rtl/write_ptr.sv
+[-- (VERI-1482)] Analyzing Verilog file '/home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/rtl/write_ptr.sv'
+%% analyze -sv09 $ROOT/rtl/top.sv
+[-- (VERI-1482)] Analyzing Verilog file '/home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/rtl/top.sv'
+%% 
+%% #--- checker + bind
+%% if {[info exists TUNNEL]} { set TDEF +define+TUNNEL } else { set TDEF "" }
+%% analyze -sv12 {*}$TDEF $ROOT/fv/fv_afifo/fv_afifo.sv
+[-- (VERI-1482)] Analyzing Verilog file '/home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/fv/fv_afifo/fv_afifo.sv'
+[WARN (VERI-1763)] /home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/fv/fv_afifo/fv_afifo.sv(82): SVA directive is not sensitive to any clock. The directive will be sampled on the posedge of the fastest clock.
+%% analyze -sv12 +define+FV_DW=$DW $ROOT/scripts/afifo/fv_afifo_bind.sv
+[-- (VERI-1482)] Analyzing Verilog file '/home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/scripts/afifo/fv_afifo_bind.sv'
+%% 
+%% #--- elaborate the DUT top
+%% elaborate -top top -parameter top.data_width $DW
+INFO (ISW003): Top module name is "top".
+INFO (INL217): RTL analysis concluded with an average file read speed of 163 Mbps.
+[INFO (HIER-8002)] /home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/rtl/top.sv(19): Disabling old hierarchical reference handler
+[INFO (VERI-1018)] /home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/rtl/write_ptr.sv(2): compiling module 'w_ptr'
+[INFO (VERI-1018)] /home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/rtl/synchronizer.sv(10): compiling module 'sync:(RST_VAL=6'b01101)'
+[INFO (VERI-1018)] /home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/rtl/read_ptr.sv(1): compiling module 'read_ptr_handler'
+[INFO (VERI-1018)] /home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/rtl/fifo_mem.sv(4): compiling module 'fifo_mem'
+[INFO (VERI-1018)] /home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/fv/fv_afifo/fv_afifo.sv(18): compiling module 'fv_afifo'
+[WARN (VDB-1002)] /home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/fv/fv_afifo/fv_afifo.sv(77): net 'tag[5]' does not have a driver
+[INFO (VERI-1018)] /home/aravindh/common/Downloads/PSU/Term6/fv_scoreboarding/async_fifo_fv/rtl/top.sv(3): compiling module 'top'
+INFO (INL208): Elaboration synthesis summary:
+  Single run mode                         On
+  Advanced Incremental run mode           Off
+  Late hierarchical reference connection  On
+  Number of analyzed Verilog modules      7 (9 synthesized)
+  Number of analyzed VHDL entities        0 (0 synthesized)
+  Number of analyzed files                7  
+  Number of netlists                      9 (1 packages) (0 loaded from cache)
+  Pipeline                                On (5 pipelined netlists)
+INFO (IPM034): Property Status database configuration set to: memory.
+INFO (INL003): Clearing all state information (assumes, stopats, and so forth).
+top
+%% 
+%% #--- clocks: free running, same declaration as the golden run so results are comparable
+%% #    (clock -factor would fix a frequency ratio; deliberately not used)
+%% clock w_clk
+%% clock r_clk
+%% 
+%% #--- resets (active low)
+%% reset -expression {!wrst_n} {!rrst_n}
+INFO (IPM031): Clearing proof results of all properties.
+INFO (IRS006): Current reset condition is "wrst_n rrst_n".
+%% 
+%% #--- clock rating: inputs change only on their own domain's clock
+%% clock -rate {w_en data_in} w_clk
+data_in w_en
+%% clock -rate {r_en} r_clk
+r_en
+%% 
+%% #--- prove
+%% if {[info exists NOPROVE]} { puts "NOPROVE set: elaborated only" } else { prove -bg -all }
+NOPROVE set: elaborated only
+r_en
+[<embedded>] % set_proofgrid_max_local_jobs 4
+[<embedded>] % set_proofgrid_engineL_max_jobs 0
+ERROR (ESW024): Illegal argument "0".
+    The argument must be a value from "1" to "2147483647", inclusive.
+
+
+[<embedded>] % set_proofgrid_engineJ_max_jobs 0
+ERROR (ESW024): Illegal argument "0".
+    The argument must be a value from "1" to "2147483647", inclusive.
+
+
+[<embedded>] % prove -property {top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance} -engine_mode {Hp N Ht}
+Ncustom1: Custom engine code is hT3Ng7hPPfiYQOTDZ3qhYOwGAM51eA+J/FjkM5shLioAsqhgLR4Ft+O1BuKG6ilQ83B9tLXSl+CwjiTMAQA
+INFO (IPF036): Starting proof on task: "<embedded>", 1 properties to prove with 0 already proven/unreachable
+INFO (IRS029): Starting reset analysis: phase 1 of 4.
+INFO (IRS030): Running reset analysis: phase 2 of 4.
+INFO (IRS031): Running reset analysis: phase 3 of 4.
+INFO (IRS020): Starting the reset analysis simulation with a limit of 100 iterations (phase 4 of 4).
+INFO (ISIM006): Running simulation: {mode = single, probe = all}.
+INFO (IRS024): Reset iterations 0 to 4 analyzed.
+INFO (ISIM008): Simulation is processing trace data. Total number of nets in analysis 1521.
+INFO (IRS018): Reset analysis simulation executed for 3 iterations. Assigned values for 440 of 448 design flops, 0 of 0 design latches, 185 of 199 internal elements.
+INFO (IRS039): Reset analysis complete.
+INFO (IPF031): Settings used for proof thread 0:
+    orchestration                         = on
+    time_limit                            = 86400s
+    per_property_time_limit               = 1s * 10 ^ scan
+    engine_mode                           = Hp N Ht 
+    proofgrid_per_engine_max_jobs         = 1
+    proofgrid_max_jobs                    = 4
+    max engine jobs                       = auto (max 4)
+    proofgrid_mode                        = local
+    proofgrid_cloud_file_upload           = auto
+    proofgrid_restarts                    = 10
+AMcustom2: Custom engine code is hT3N1rhP11/52HrFRS21ROp2LOjVTgPvT8L8BGXHgLhaIuqtT4nARFjUqrBL+7pLmaTOzBepZW/Jm8SSrHDybSQtoNiO3y43wk+dEoWlsZizu97Fih6O6lPVG/LpWP5SsUPwlGagLNa1FKEFvwVXyX7//8prySbvSxIHXr5er+z4RAEA
+Ncustom3: Custom engine code is hT3OXrhPByJp3TrFSTLhUmMH4KVtJgmTCnNDF46yMXOKY48m4LS5nE7yBzFjA7kDuwO/GhGUpEPiky3p3wmPn3dJZHxFMsafSoObRzSC+tn7sEY0WbTdZ/FV4hL3MYH/b1CIUvXSWR4wqEoVLsmMOD4xIPT4lI1LO6ZCO7PnnWQuLwetnvKlrXx6wCW/A+x+enqslg1YPobi4wEF/EvbzOvcTYdJvl2s4H2yZg2b2ofAVN5WvhWk1HoBAA
+0: Using multistage preprocessing
+ADcustom4: Custom engine code is hT3Nv7hPv1752HrFRa2kROx2f/ECJeZB2AZsLdlO8VwmIuqtT4nIDFXclhg+O+o+DMmQCekbheGk0kK28laA9gaOFDXsQp29J3X615HY1IPHJWd6FUFvCHjO+p1k652b5JJvZlShNpGlGSXAiQe/mEAj6tEBAA
+0: Starting reduce
+Tricustom5: Custom engine code is hT3Nu7hPt1752DvFRa0kNDiyIV97VyejwM9C/jCLJjdPvusZONHY42VYUy0Q1ZotnhcVtNc56tJ5wbxv6V2+XpdsaSlHck5vfnbYjdwj1OECy9U+7oSQ0SZE3g5ayD+Phuh4odCJTjeKa2k4elM9ldQfkAEA
+Gcustom6: Custom engine code is hT3NibhPDfeYQADBZnYcglOvK9Pfd7EOeniIqP8jNsyIqInncipMGcUXqAadachREE9F2PwhBUZUNw5kHnd4JdXkamORRgEA
+C2custom7: Custom engine code is hT3NirhPjfWYQADBZnYcglOvK9Pfd7EOeniIqP8jNsyIqInncgkrYMMXCYbdK0dUjZIF9d4cJ0rHoBDjwVLBKuG86XYVV00BAA
+AGcustom8: Custom engine code is hT3NirhP/fmYQADBZnYcglOvK9Pfd7EOeniIqP8jNsyIqInnckcwYMMXCYbdK0dUjZIF9d4cJ0rHoBDjwVLBKuHEZnZByh0BAA
+Bcustom9: Custom engine code is hT3NjrhPDfiYQADBZnYcglOvK9PfWxFtenjIyBqfrgr7if/jL/yPOuK1BAflEcW0DxNH2eDIoezN2gxlQFg81RZtiWXh7aiTAidvAQA
+Ncustom10: Custom engine code is hT3NR7hPByFp3TrFSTLhUmMH4KWtJglTyV/c51BHEeZWamnJv767nE6PCak26bd3gf3XGN3rIRheufhDieCJQVISo+gNYUKhiUedBKGtsP/a18svAnlMJZudHxDFwK5ufsyoxsIyiAeSY2oi3tEuoDHr5gw42DFKAG3PqO3CEsl8Azzdt3pl5nGA1Ifv2H02eYsFzWb/nfp8PMb3F0krE/EgBcm8TD9Div8BAA
+Tricustom11: Custom engine code is hT3Nu7hP3fiYQADBZnYcglNHp9bfd7EOeniIqP/ji8sGLQu8yhsFO+wxJ+O+R0bU8g/IewXFomyos+viQnWc2xYNYmMqpo3i40O7DaZR7qfp4YqNx26KRvQ/qx0BAA
+0: Finished reduce in 0.001s
+0.0.PRE: Performing Proof Simplification...
+0.0.Hp: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+0.0.Hp: Proof Simplification Iteration 1	[0.00 s]
+0.0.Hp: Proof Simplification Iteration 2	[0.00 s]
+0.0.Hp: Proof Simplification Iteration 3	[0.00 s]
+0.0.Hp: Proof Simplification Iteration 4	[0.00 s]
+0.0.Hp: Proof Simplification Iteration 5	[0.00 s]
+0.0.Hp: Proof Simplification Iteration 6	[0.00 s]
+0.0.Hp: Proof Simplification Iteration 7	[0.00 s]
+0.0.Hp: Proof Simplification Iteration 8	[0.00 s]
+0.0.Hp: Proof Simplification Iteration 9	[0.00 s]
+0.0.PRE: A proof was found: No trace exists. [0.00 s]
+INFO (IPF057): 0.0.PRE: The property ":noDeadEnd" was proven in 0.00 s.
+    Use check_assumptions -show -dead_end to show this property in the property table.
+0.0.PRE: A proof was found: No trace exists. [0.00 s]
+INFO (IPF057): 0.0.PRE: The property ":noConflict" was proven in 0.00 s.
+    Use check_assumptions -show to show this property in the property table.
+INFO (IPF047): 0.0.PRE: The cover property ":live" was covered in 1 cycles in 0.00 s.
+    Use check_assumptions -show -live to show this property in the property table.
+0.0.PRE: Proof Simplification completed in 0.01 s
+0: About to start ProofGrid in its own thread with a limit of 10000 pending notifications and a limit of 10 traces.
+0: ============================= ProofGrid (v3) start =============================
+0: ProofGrid usable level: 1
+0: Initial ProofGrid level: 1
+0: ProofGrid is starting event handling
+0: Computed task hash in 0.00s
+0.0.Hp: OS virtual memory limit : 64.00 GiB / 128.00 GiB
+0.0.Hp: Proofgrid shell started at 238472@deimos.ece.pdx.edu(local) jg_238163_deimos.ece.pdx.edu_1
+0.0.Hp: Connected successfully after 0.00s.
+0.0.Hp: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+0.0.Hp: Trace Attempt  1	[0.05 s]
+0.0.Hp: Trace Attempt  2	[0.05 s]
+0.0.Ht: OS virtual memory limit : 64.00 GiB / 128.00 GiB
+0.0.Ht: Proofgrid shell started at 238486@deimos.ece.pdx.edu(local) jg_238163_deimos.ece.pdx.edu_1
+0.0.Ht: Connected successfully after 0.00s.
+0.0.N: OS virtual memory limit : 64.00 GiB / 128.00 GiB
+0.0.Hp: Trace Attempt  3	[0.06 s]
+0.0.N: Proofgrid shell started at 238487@deimos.ece.pdx.edu(local) jg_238163_deimos.ece.pdx.edu_1
+0.0.N: Connected successfully after 0.00s.
+0.0.N: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+0.0.N: Next scan (0) will use per property time limit: 1s * 10 ^ 0 = 1s
+0.0.N: Starting proof for property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[0.00 s].
+0.0.N: Trace Attempt  1	[0.00 s]
+0.0.N: Trace Attempt  2	[0.00 s]
+0.0.N: Trace Attempt  3	[0.00 s]
+0.0.N: Trace Attempt  3	[0.00 s]
+0.0.N: Trace Attempt  4	[0.01 s]
+0.0.N: Trace Attempt  5	[0.01 s]
+0.0.N: Trace Attempt  5	[0.01 s]
+0.0.Hp: Trace Attempt  4	[0.10 s]
+0.0.Hp: Trace Attempt  5	[0.10 s]
+0.0.Ht: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+0.0.Ht: Trace Attempt  1	[0.04 s]
+0.0.Ht: Trace Attempt  2	[0.04 s]
+0.0.Ht: Trace Attempt  3	[0.04 s]
+0.0.Ht: Trace Attempt  4	[0.04 s]
+0.0.Ht: Trace Attempt  5	[0.04 s]
+0.0.N: Trace Attempt  1	[0.24 s]
+0.0.N: Trace Attempt  2	[0.24 s]
+0.0.N: Trace Attempt  3	[0.25 s]
+0.0.N: Trace Attempt  5	[0.34 s]
+0.0.N: Trace Attempt 13	[0.94 s]
+0.0.N: Per property time limit expired (1.00 s) [1.00 s]
+0.0.N: Stopped processing property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[1.00 s].
+0.0.N: Starting proof for property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[0.00 s].
+0.0.N: Trace Attempt  5	[0.00 s]
+0.0.N: Trace Attempt  1	[0.22 s]
+0.0.N: Trace Attempt  2	[0.22 s]
+0.0.N: Trace Attempt  3	[0.22 s]
+0.0.N: Trace Attempt  4	[0.26 s]
+0.0.N: Trace Attempt  5	[0.26 s]
+0.0.Ht: Trace Attempt 38	[4.10 s]
+0.0.N: Trace Attempt 43	[4.36 s]
+0.0.Hp: Trace Attempt 37	[7.89 s]
+0.0.Ht: Trace Attempt 52	[8.10 s]
+0.0.N: Trace Attempt 46	[5.07 s]
+0.0.N: Per property time limit expired (10.00 s) [10.00 s]
+0.0.N: Stopped processing property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[10.00 s].
+0.0.N: Starting proof for property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[0.00 s].
+0.0.N: Trace Attempt 46	[0.00 s]
+0.0.Ht: Trace Attempt 62	[13.01 s]
+0.0.Hp: Trace Attempt 60	[18.14 s]
+0.0.Ht: Trace Attempt 69	[18.22 s]
+0.0.Ht: Trace Attempt 77	[23.98 s]
+0.0.Ht: Trace Attempt 82	[28.18 s]
+0.0.Hp: Trace Attempt 69	[30.02 s]
+0.0.Ht: Trace Attempt 84	[32.85 s]
+0.0.Ht: Trace Attempt 87	[37.00 s]
+0.0.Hp: Trace Attempt 84	[42.41 s]
+0.0.Ht: Trace Attempt 92	[42.99 s]
+0.0.Ht: Trace Attempt 95	[47.08 s]
+0.0.Ht: Trace Attempt 100	[54.62 s]
+0.0.Ht: Trace Attempt 101	[58.90 s]
+0.0.Ht: Trace Attempt 108	[67.51 s]
+0.0.Ht: Trace Attempt 114	[71.53 s]
+0.0.Ht: Trace Attempt 120	[81.11 s]
+0.0.Ht: Trace Attempt 122	[85.65 s]
+0.0.Ht: Trace Attempt 130	[94.69 s]
+0.0.Ht: Trace Attempt 133	[99.03 s]
+0.0.Ht: Trace Attempt 143	[106.23 s]
+0.0.Ht: Trace Attempt 147	[110.82 s]
+0.0.N: Per property time limit expired (100.00 s) [100.01 s]
+0.0.N: Stopped processing property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[100.01 s].
+0.0.N: Starting proof for property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[0.00 s].
+0.0.Ht: Trace Attempt 152	[114.97 s]
+0.0.Ht: Trace Attempt 159	[127.06 s]
+0.0.Ht: Trace Attempt 160	[133.63 s]
+0.0.Ht: Trace Attempt 166	[137.81 s]
+0.0.Ht: Trace Attempt 169	[149.24 s]
+0.0.Ht: Trace Attempt 172	[154.42 s]
+0.0.Ht: Trace Attempt 182	[158.45 s]
+0.0.Ht: Trace Attempt 185	[170.06 s]
+0.0.Ht: Trace Attempt 187	[176.17 s]
+0.0.Ht: Trace Attempt 196	[180.22 s]
+0.0.N: Trace Attempt 46	[0.00 s]
+0.0.N: Stopped processing property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[70.03 s].
+0.0.N: All properties determined. [0.00 s]
+0.0.N: Exited with Success (@ 0.00 s)
+0: ProofGrid usable level: 1
+0.0.Ncustom1: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+0.0.Ncustom3: OS virtual memory limit : 64.00 GiB / 128.00 GiB
+0.0.Ncustom3: Proofgrid shell started at 240337@deimos.ece.pdx.edu(local) jg_238163_deimos.ece.pdx.edu_1
+0.0.Ncustom3: Connected successfully after 0.00s.
+0.0.Ncustom1: Starting proof for property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[0.00 s].
+0.0.Ncustom3: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+0.0.Ncustom3: Next scan (0) will use per property time limit: 1s * 10 ^ 0 = 1s
+0.0.Ncustom3: Starting proof for property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[0.00 s].
+0.0.Ncustom3: Trace Attempt  1	[0.00 s]
+0.0.Ncustom3: Trace Attempt  2	[0.00 s]
+0.0.Ncustom3: Trace Attempt  3	[0.00 s]
+0.0.Ncustom3: Trace Attempt  4	[0.00 s]
+0.0.Ncustom3: Trace Attempt  5	[0.00 s]
+0.0.Ncustom1: Trace Attempt 46	[0.01 s]
+0.0.Ncustom1: Per property time limit expired (1.00 s) [1.00 s]
+0.0.Ncustom1: Stopped processing property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[1.00 s].
+0.0.Ncustom3: Trace Attempt 19	[0.93 s]
+0.0.Ncustom3: Per property time limit expired (1.00 s) [1.00 s]
+0.0.Ncustom3: Stopped processing property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[1.00 s].
+0.0.Ncustom3: Starting proof for property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[0.00 s].
+0.0.Ncustom3: Trace Attempt  1	[0.00 s]
+0.0.Ncustom3: Trace Attempt  2	[0.00 s]
+0.0.Ncustom3: Trace Attempt  3	[0.00 s]
+0.0.Ncustom3: Trace Attempt  4	[0.00 s]
+0.0.Ncustom3: Trace Attempt  5	[0.01 s]
+0.0.Ncustom3: Trace Attempt 22	[1.85 s]
+0.0.Ncustom3: Per property time limit expired (2.00 s) [2.00 s]
+0.0.Ncustom3: Stopped processing property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[2.00 s].
+0.0.Ht: Trace Attempt 199	[193.68 s]
+0.0.Ncustom1: Starting proof for property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[0.00 s].
+0.0.Ncustom3: Starting proof for property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[0.00 s].
+0.0.Ncustom3: Trace Attempt  1	[0.00 s]
+0.0.Ncustom3: Trace Attempt  2	[0.00 s]
+0.0.Ncustom3: Trace Attempt  3	[0.00 s]
+0.0.Ncustom3: Trace Attempt  4	[0.00 s]
+0.0.Ncustom3: Trace Attempt  5	[0.01 s]
+0.0.Ncustom3: Trace Attempt 26	[4.39 s]
+0.0.Ht: Trace Attempt 201	[201.14 s]
+0.0.Ncustom3: Trace Attempt 31	[9.33 s]
+0.0.Ht: Trace Attempt 209	[205.41 s]
+0.0.Ncustom3: Trace Attempt 34	[14.22 s]
+0.0.Ncustom3: Per property time limit expired (16.00 s) [16.01 s]
+0.0.Ncustom3: Stopped processing property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[16.01 s].
+0.0.Ncustom1: Trace Attempt 46	[0.01 s]
+0.0.Ncustom1: Stopped processing property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[16.09 s].
+0.0.Ncustom1: Starting proof for property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[0.00 s].
+0.0.Ncustom3: Starting proof for property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[0.00 s].
+0.0.Ncustom3: Trace Attempt  1	[0.00 s]
+0.0.Ncustom3: Trace Attempt  2	[0.00 s]
+0.0.Ncustom3: Trace Attempt  3	[0.00 s]
+0.0.Ncustom3: Trace Attempt  4	[0.00 s]
+0.0.Ncustom3: Trace Attempt  5	[0.01 s]
+0.0.Ncustom1: Trace Attempt 46	[0.01 s]
+0.0.Ncustom3: Trace Attempt 26	[4.42 s]
+0.0.Ht: Trace Attempt 212	[218.98 s]
+0.0.Ncustom3: Trace Attempt 31	[9.27 s]
+0.0.Ht: Trace Attempt 214	[227.00 s]
+0.0.Ncustom3: Trace Attempt 34	[14.13 s]
+0.0.Ht: Trace Attempt 222	[231.15 s]
+0.0.Ncustom3: Trace Attempt 36	[18.85 s]
+0.0.Ncustom3: Trace Attempt 38	[26.13 s]
+0.0.Hp: Interrupted (multi)
+0.0.Ncustom3: Trace Attempt 39	[30.38 s]
+0.0.Ncustom1: Per property time limit expired (32.00 s) [32.01 s]
+0.0.Ncustom1: Stopped processing property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[32.01 s].
+0.0.Ncustom3: Stopped processing property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[32.08 s].
+0.0.Ht: Trace Attempt 226	[247.67 s]
+0.0.Ncustom1: Starting proof for property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[0.00 s].
+0.0.Ncustom3: Starting proof for property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[0.00 s].
+0.0.Ncustom3: Trace Attempt  1	[0.00 s]
+0.0.Ncustom3: Trace Attempt  2	[0.00 s]
+0.0.Ncustom3: Trace Attempt  3	[0.00 s]
+0.0.Ncustom3: Trace Attempt  4	[0.00 s]
+0.0.Ncustom3: Trace Attempt  5	[0.01 s]
+0.0.Ncustom3: Trace Attempt 28	[4.51 s]
+0.0.Ht: Trace Attempt 227	[254.30 s]
+0.0.Ncustom3: Trace Attempt 32	[8.97 s]
+0.0.Ht: Trace Attempt 233	[259.08 s]
+0.0.Ncustom3: Trace Attempt 35	[14.80 s]
+0.0.Ncustom3: Trace Attempt 37	[20.41 s]
+0.0.Ht: Trace Attempt 238	[270.29 s]
+0.0.Ncustom3: Trace Attempt 38	[24.41 s]
+0.0.Ncustom3: Trace Attempt 39	[28.57 s]
+0.0.Ncustom3: Trace Attempt 41	[33.96 s]
+0.0.Ht: Trace Attempt 239	[283.38 s]
+0.0.Ncustom3: Trace Attempt 43	[39.79 s]
+0.0.Ht: Trace Attempt 240	[291.02 s]
+0.0.Ncustom3: Trace Attempt 44	[44.41 s]
+0.0.Ht: Trace Attempt 244	[295.21 s]
+0.0.Ncustom3: Trace Attempt 45	[48.53 s]
+0.0.Ht: Trace Attempt 248	[300.37 s]
+0.0.Ncustom3: Trace Attempt 46	[52.98 s]
+0.0.Ht: Trace Attempt 255	[304.60 s]
+0.0.Ncustom1: Trace Attempt 46	[0.01 s]
+0.0.Ncustom1: Per property time limit expired (64.00 s) [64.01 s]
+0.0.Ncustom1: Stopped processing property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[64.01 s].
+0.0.Ncustom3: Stopped processing property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[64.05 s].
+0.0.Ncustom3: Starting proof for property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[0.00 s].
+0.0.Ncustom1: Starting proof for property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[0.00 s].
+0.0.Ncustom3: Trace Attempt  1	[0.00 s]
+0.0.Ncustom3: Trace Attempt  2	[0.00 s]
+0.0.Ncustom3: Trace Attempt  3	[0.00 s]
+0.0.Ncustom3: Trace Attempt  4	[0.00 s]
+0.0.Ncustom3: Trace Attempt  5	[0.01 s]
+0.0.Ncustom1: Trace Attempt 46	[0.01 s]
+0.0.Ncustom3: Trace Attempt 28	[4.54 s]
+0.0.Ncustom3: Trace Attempt 32	[9.06 s]
+0.0.Ht: Trace Attempt 261	[326.34 s]
+0.0.Ncustom3: Trace Attempt 35	[14.80 s]
+0.0.Ncustom3: Trace Attempt 37	[20.38 s]
+0.0.Ht: Trace Attempt 262	[337.29 s]
+0.0.Ht: Trace Attempt 265	[341.58 s]
+0.0.Ncustom3: Trace Attempt 39	[28.50 s]
+0.0.Ncustom3: Trace Attempt 41	[33.78 s]
+0.0.Ncustom3: Trace Attempt 43	[39.41 s]
+0.0.Ncustom3: Trace Attempt 44	[44.05 s]
+0.0.Ht: Trace Attempt 272	[360.13 s]
+0.0.Ncustom3: Trace Attempt 45	[48.10 s]
+0.0.Ht: Trace Attempt 273	[366.16 s]
+0.0.Ncustom3: Trace Attempt 46	[53.28 s]
+0.0.Ht: Trace Attempt 275	[371.12 s]
+0.0.Ht: Trace Attempt 281	[375.22 s]
+0.0.Ht: Trace Attempt 287	[379.58 s]
+0.0.Ht: Trace Attempt 289	[400.55 s]
+0.0.Ht: Trace Attempt 290	[413.14 s]
+0.0.Ht: Trace Attempt 292	[417.40 s]
+0.0.Ht: Trace Attempt 298	[421.89 s]
+0.0.Ht: Trace Attempt 301	[437.41 s]
+0.0.Ncustom1: Per property time limit expired (128.00 s) [128.02 s]
+0.0.Ncustom1: Stopped processing property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[128.02 s].
+0.0.Ncustom3: Per property time limit expired (128.00 s) [128.07 s]
+0.0.Ncustom3: Stopped processing property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[128.07 s].
+0.0.Ht: Trace Attempt 302	[443.34 s]
+0.0.Ncustom3: Starting proof for property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[0.00 s].
+0.0.Ncustom1: Starting proof for property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[0.00 s].
+0.0.Ncustom3: Trace Attempt  1	[0.00 s]
+0.0.Ncustom3: Trace Attempt  2	[0.00 s]
+0.0.Ncustom3: Trace Attempt  3	[0.00 s]
+0.0.Ncustom3: Trace Attempt  4	[0.00 s]
+0.0.Ncustom3: Trace Attempt  5	[0.01 s]
+0.0.Ht: Trace Attempt 304	[448.93 s]
+0.0.Ncustom3: Trace Attempt 28	[4.60 s]
+0.0.Ht: Trace Attempt 313	[453.37 s]
+0.0.Ncustom3: Trace Attempt 32	[9.10 s]
+0.0.Ht: Trace Attempt 319	[457.85 s]
+0.0.Ncustom3: Trace Attempt 35	[14.79 s]
+0.0.Ncustom3: Trace Attempt 37	[20.29 s]
+0.0.Ncustom3: Trace Attempt 39	[28.31 s]
+0.0.Ncustom3: Trace Attempt 41	[33.68 s]
+0.0.Ht: Trace Attempt 321	[480.76 s]
+0.0.Ncustom3: Trace Attempt 43	[39.63 s]
+0.0.Ncustom3: Trace Attempt 44	[44.28 s]
+0.0.Ht: Trace Attempt 322	[492.64 s]
+0.0.Ncustom3: Trace Attempt 45	[48.35 s]
+0.0.Ht: Trace Attempt 323	[496.84 s]
+0.0.Ncustom3: Trace Attempt 46	[52.76 s]
+0.0.Ht: Trace Attempt 328	[500.92 s]
+0.0.Ht: Trace Attempt 333	[522.79 s]
+0.0.Ht: Trace Attempt 334	[534.62 s]
+0.0.Ht: Trace Attempt 338	[539.14 s]
+0.0.Ht: Trace Attempt 345	[543.19 s]
+0.0.Ht: Trace Attempt 349	[550.69 s]
+0.0.Ht: Trace Attempt 350	[575.42 s]
+0.0.Ht: Trace Attempt 351	[587.43 s]
+0.0.Ht: Trace Attempt 355	[591.51 s]
+0.0.Ht: Trace Attempt 360	[595.72 s]
+0.0.Ht: Trace Attempt 363	[628.69 s]
+0.0.Ht: Trace Attempt 364	[643.20 s]
+0.0.Ht: Trace Attempt 370	[647.70 s]
+0.0.Ht: Trace Attempt 375	[651.88 s]
+0.0.Ht: Trace Attempt 377	[675.54 s]
+0.0.Ht: Trace Attempt 378	[685.09 s]
+0.0.Ht: Trace Attempt 379	[690.54 s]
+0.0.Ht: Trace Attempt 385	[694.69 s]
+0.0.Ht: Trace Attempt 392	[700.44 s]
+0.0.Ncustom1: Trace Attempt 46	[0.01 s]
+0.0.Ncustom1: Per property time limit expired (256.00 s) [256.01 s]
+0.0.Ncustom1: Stopped processing property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[256.02 s].
+0.0.Ncustom3: Per property time limit expired (256.00 s) [256.05 s]
+0.0.Ncustom3: Stopped processing property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[256.05 s].
+0.0.Ncustom3: All properties determined. [0.00 s]
+0.0.Ncustom3: Exited with Success (@ 0.00 s)
+0: ProofGrid usable level: 1
+0.0.Ncustom1: Starting proof for property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[0.00 s].
+0.0.Ncustom10: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+0.0.Ncustom10: Starting proof for property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[0.00 s].
+0.0.Ncustom10: Trace Attempt  1	[0.00 s]
+0.0.Ncustom10: Trace Attempt  2	[0.00 s]
+0.0.Ncustom10: Trace Attempt  3	[0.00 s]
+0.0.Ncustom10: Trace Attempt  4	[0.00 s]
+0.0.Ncustom10: Trace Attempt  5	[0.00 s]
+0.0.Ncustom1: Trace Attempt 46	[0.01 s]
+0.0.Ncustom10: Trace Attempt 28	[4.37 s]
+0.0.Ncustom10: Trace Attempt 32	[8.66 s]
+0.0.Ncustom10: Trace Attempt 35	[14.06 s]
+0.0.Ncustom10: Trace Attempt 37	[19.21 s]
+0.0.Ncustom10: Trace Attempt 39	[26.96 s]
+0.0.Ht: Trace Attempt 395	[734.92 s]
+0.0.Ncustom10: Trace Attempt 41	[31.99 s]
+0.0.Ncustom10: Trace Attempt 43	[37.34 s]
+0.0.Ncustom10: Trace Attempt 44	[41.63 s]
+0.0.Ht: Trace Attempt 396	[747.87 s]
+0.0.Ht: Trace Attempt 398	[752.64 s]
+0.0.Ncustom10: Trace Attempt 46	[49.50 s]
+0.0.Ht: Trace Attempt 405	[756.79 s]
+0.0.Ht: Trace Attempt 410	[775.48 s]
+0.0.Ht: Trace Attempt 411	[781.20 s]
+0.0.Ht: Trace Attempt 415	[785.84 s]
+0.0.Ht: Trace Attempt 418	[792.55 s]
+0.0.Ht: Trace Attempt 425	[796.56 s]
+0.0.Ht: Trace Attempt 432	[801.24 s]
+0.0.Ht: Trace Attempt 438	[987.36 s]
+0.0.Ncustom10: Trace Attempt 47	[336.60 s]
+0.0.Ncustom10: Trace Attempt  1	[336.72 s]
+0.0.Ncustom10: Trace Attempt  2	[336.73 s]
+0.0.Ncustom10: Trace Attempt  3	[336.73 s]
+0.0.Ncustom10: Trace Attempt  5	[336.77 s]
+0.0.Ncustom10: Trace Attempt 43	[340.92 s]
+0.0.Ncustom10: Trace Attempt 53	[345.62 s]
+0.0.Ncustom10: Trace Attempt 57	[350.07 s]
+0.0.Hp: Backjump considered with 0 new target(s) and 102 clause(s).
+0.0.Hp: Resumed at depth 234.
+0.0.Ncustom10: Trace Attempt 64	[354.48 s]
+0.0.Ncustom10: Trace Attempt 71	[358.63 s]
+0.0.Ncustom10: Trace Attempt 76	[362.87 s]
+0.0.Ncustom10: Trace Attempt 82	[367.06 s]
+0.0.Ncustom10: Trace Attempt 88	[371.13 s]
+0.0.Ncustom10: Trace Attempt 94	[376.05 s]
+0.0.Ncustom10: Trace Attempt 99	[380.12 s]
+0.0.Ncustom10: Trace Attempt 104	[384.99 s]
+0.0.Ncustom10: Trace Attempt 109	[389.39 s]
+0.0.Ncustom10: Trace Attempt 114	[393.93 s]
+0.0.Ncustom10: Validation of fixpoint was successful. Time = 0.30
+0.0.Ncustom10: Trace Attempt 118	[396.48 s]
+0.0.Ncustom10: A proof was found: No trace exists. [397.47 s]
+INFO (IPF057): 0.0.Ncustom10: The property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance" was proven in 397.48 s.
+0: ProofGrid usable level: 0
+INFO (IPF144): 0: Initiating shutdown of proof [1101.66 s]
+0.0.Hp: Requesting engine job to terminate
+0.0.Ht: Requesting engine job to terminate
+0.0.Ncustom10: Requesting engine job to terminate
+0.0.Ncustom1: Requesting engine job to terminate
+0.0.Ncustom10: Stopped processing property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[397.49 s].
+0.0.Ncustom10: All properties determined. [397.49 s]
+0.0.Ncustom1: Stopped processing property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance"	[397.50 s].
+0.0.Ncustom10: Exited with Success (@ 1101.67 s)
+0: ProofGrid usable level: 0
+0.0.Ncustom1: All properties determined. [397.50 s]
+0.0.Hp: Interrupted (multi)
+0.0.Hp: Trace Attempt 91	[42.41 s]
+0.0.Hp: All properties determined. [858.32 s]
+0.0.Ncustom1: Exited with Success (@ 1101.70 s)
+0.0.Ht: Interrupted (multi)
+0.0.Ht: All properties determined. [1101.58 s]
+0.0.Hp: Exited with Success (@ 1101.72 s)
+0.0.Ht: Exited with Success (@ 1101.89 s)
+0: --------------------------------------------------------------
+ProofGrid Summary (utilization 99.99 % idle time 0.01 s)
+--------------------------------------------------------------
+     engines started                               :     4
+     engine jobs started                           :     4
+
+    Time in state (seconds)
+    --------------------------------------------------------
+               Pending     Running        Dying       Dead
+    --------------------------------------------------------
+    min           0.00        0.00        0.00        0.00
+    mean          0.11     1056.18        0.09        0.14
+    median        0.10     1101.56        0.05        0.18
+    max           0.12     1101.66        0.23        0.22
+    sum           0.42     4224.71        0.35        0.57
+
+    Data read    : 301.07 kiB
+    Data written : 304.14 kiB
+
+INFO (IPF180): 0: ProofGrid utilization: 99.99% slot-seconds: 4224.71
+0: ProofGrid usable level: 0
+0: All pending notifications were processed.
+INFO (IPF059): 0: Completed proof on task: "<embedded>"
+proven
+[<embedded>] % prove -property {top.tc_checker_inst.hlp_h5_tracked_slot_in_window} -engine_mode {Hp N Ht}
+INFO (IPF036): Starting proof on task: "<embedded>", 1 properties to prove with 0 already proven/unreachable
+INFO (IPF031): Settings used for proof thread 1:
+    orchestration                         = on
+    time_limit                            = 86400s
+    per_property_time_limit               = 1s * 10 ^ scan
+    engine_mode                           = Hp N Ht 
+    proofgrid_per_engine_max_jobs         = 1
+    proofgrid_max_jobs                    = 4
+    max engine jobs                       = auto (max 4)
+    proofgrid_mode                        = local
+    proofgrid_cloud_file_upload           = auto
+    proofgrid_restarts                    = 10
+1: Using multistage preprocessing
+1: Starting reduce
+1: Finished reduce in 0.002s
+1.0.PRE: Performing Proof Simplification...
+1.0.Hp: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+1.0.Hp: Proof Simplification Iteration 1	[0.00 s]
+1.0.Hp: Proof Simplification Iteration 2	[0.00 s]
+1.0.Hp: Proof Simplification Iteration 3	[0.00 s]
+1.0.Hp: Proof Simplification Iteration 4	[0.00 s]
+1.0.Hp: Proof Simplification Iteration 5	[0.00 s]
+1.0.Hp: Proof Simplification Iteration 6	[0.00 s]
+1.0.Hp: Proof Simplification Iteration 7	[0.00 s]
+1.0.Hp: Proof Simplification Iteration 8	[0.00 s]
+1.0.Hp: Proof Simplification Iteration 9	[0.01 s]
+1.0.PRE: A proof was found: No trace exists. [0.00 s]
+INFO (IPF057): 1.0.PRE: The property ":noDeadEnd" was proven in 0.00 s.
+    Use check_assumptions -show -dead_end to show this property in the property table.
+1.0.PRE: Proof Simplification completed in 0.01 s
+1: About to start ProofGrid in its own thread with a limit of 10000 pending notifications and a limit of 10 traces.
+1: ============================= ProofGrid (v3) start =============================
+1: ProofGrid usable level: 1
+1: Initial ProofGrid level: 1
+1: ProofGrid is starting event handling
+1: Computed task hash in 0.00s
+1.0.Hp: OS virtual memory limit : 64.00 GiB / 128.00 GiB
+1.0.Hp: Proofgrid shell started at 255529@deimos.ece.pdx.edu(local) jg_238163_deimos.ece.pdx.edu_2
+1.0.Hp: Connected successfully after 0.00s.
+1.0.Hp: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+1.0.Hp: Trace Attempt  1	[0.05 s]
+1.0.Hp: Trace Attempt  2	[0.05 s]
+1.0.Hp: Trace Attempt  3	[0.05 s]
+1.0.Ht: OS virtual memory limit : 64.00 GiB / 128.00 GiB
+1.0.Ht: Proofgrid shell started at 255543@deimos.ece.pdx.edu(local) jg_238163_deimos.ece.pdx.edu_2
+1.0.Ht: Connected successfully after 0.00s.
+1.0.Hp: Trace Attempt  4	[0.06 s]
+1.0.N: OS virtual memory limit : 64.00 GiB / 128.00 GiB
+1.0.Hp: Trace Attempt  5	[0.06 s]
+1.0.N: Proofgrid shell started at 255544@deimos.ece.pdx.edu(local) jg_238163_deimos.ece.pdx.edu_2
+1.0.N: Connected successfully after 0.00s.
+1.0.N: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+1.0.N: Next scan (0) will use per property time limit: 1s * 10 ^ 0 = 1s
+1.0.N: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.N: Trace Attempt  1	[0.00 s]
+1.0.N: Trace Attempt  2	[0.00 s]
+1.0.N: Trace Attempt  2	[0.00 s]
+1.0.N: Trace Attempt  3	[0.00 s]
+1.0.N: Trace Attempt  3	[0.01 s]
+1.0.N: Trace Attempt  4	[0.01 s]
+1.0.N: Trace Attempt  5	[0.01 s]
+1.0.N: Trace Attempt  5	[0.01 s]
+1.0.Ht: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+1.0.Ht: Trace Attempt  1	[0.04 s]
+1.0.Ht: Trace Attempt  2	[0.04 s]
+1.0.Ht: Trace Attempt  3	[0.04 s]
+1.0.Ht: Trace Attempt  4	[0.04 s]
+1.0.Ht: Trace Attempt  5	[0.04 s]
+1.0.N: Trace Attempt  1	[0.38 s]
+1.0.N: Trace Attempt  2	[0.38 s]
+1.0.N: Trace Attempt  3	[0.38 s]
+1.0.N: Trace Attempt  5	[0.39 s]
+1.0.N: Trace Attempt 18	[0.97 s]
+1.0.N: Per property time limit expired (1.00 s) [1.00 s]
+1.0.N: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[1.00 s].
+1.0.N: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.N: Trace Attempt  6	[0.00 s]
+1.0.N: Trace Attempt  1	[0.34 s]
+1.0.N: Trace Attempt  2	[0.35 s]
+1.0.N: Trace Attempt  3	[0.35 s]
+1.0.N: Trace Attempt  5	[0.36 s]
+1.0.Ht: Trace Attempt 31	[4.99 s]
+1.0.Hp: Trace Attempt 31	[5.53 s]
+1.0.N: Trace Attempt 42	[4.58 s]
+1.0.N: Trace Attempt 55	[8.70 s]
+1.0.N: Trace Attempt 57	[9.88 s]
+1.0.N: Per property time limit expired (10.00 s) [10.01 s]
+1.0.N: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[10.01 s].
+1.0.N: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.N: Trace Attempt  6	[0.00 s]
+1.0.N: Trace Attempt  1	[0.21 s]
+1.0.N: Trace Attempt  2	[0.21 s]
+1.0.N: Trace Attempt  3	[0.21 s]
+1.0.N: Trace Attempt  4	[0.22 s]
+1.0.N: Trace Attempt  5	[0.22 s]
+1.0.Hp: Trace Attempt 42	[14.11 s]
+1.0.Ht: Trace Attempt 45	[15.12 s]
+1.0.N: Trace Attempt 47	[4.33 s]
+1.0.N: Trace Attempt 57	[8.80 s]
+1.0.N: Trace Attempt 65	[13.26 s]
+1.0.Ht: Trace Attempt 58	[49.05 s]
+1.0.Hp: Trace Attempt 58	[51.54 s]
+1.0.Hp: Trace Attempt 66	[99.75 s]
+1.0.Ht: Trace Attempt 66	[101.39 s]
+1.0.N: Trace Attempt 65	[13.36 s]
+1.0.N: Per property time limit expired (100.00 s) [100.01 s]
+1.0.N: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[100.01 s].
+1.0.N: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.N: Trace Attempt 65	[0.00 s]
+1.0.Hp: Trace Attempt 67	[135.08 s]
+1.0.Ht: Trace Attempt 67	[147.19 s]
+1.0.Hp: Trace Attempt 68	[161.07 s]
+1.0.N: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[70.11 s].
+1.0.N: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.N: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.N: All properties determined. [0.00 s]
+1.0.N: Exited with Success (@ 0.00 s)
+1: ProofGrid usable level: 1
+1.0.Ncustom1: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+1.0.Ncustom3: OS virtual memory limit : 64.00 GiB / 128.00 GiB
+1.0.Ncustom3: Proofgrid shell started at 257781@deimos.ece.pdx.edu(local) jg_238163_deimos.ece.pdx.edu_2
+1.0.Ncustom3: Connected successfully after 0.00s.
+1.0.Ncustom1: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom3: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+1.0.Ncustom3: Next scan (0) will use per property time limit: 1s * 10 ^ 0 = 1s
+1.0.Ncustom3: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom1: Trace Attempt 65	[0.02 s]
+1.0.Ncustom3: Trace Attempt 65	[0.02 s]
+1.0.Ncustom1: Per property time limit expired (1.00 s) [1.00 s]
+1.0.Ncustom1: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[1.00 s].
+1.0.Ncustom3: Per property time limit expired (1.00 s) [1.00 s]
+1.0.Ncustom3: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[1.00 s].
+1.0.Ncustom3: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Hp: Trace Attempt 69	[186.67 s]
+1.0.Ncustom3: Trace Attempt 65	[0.02 s]
+1.0.Ncustom3: Per property time limit expired (2.00 s) [2.00 s]
+1.0.Ncustom3: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[2.00 s].
+1.0.Ht: Trace Attempt 68	[187.63 s]
+1.0.Ncustom3: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom1: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom3: Trace Attempt 65	[0.02 s]
+1.0.Hp: Trace Attempt 70	[209.28 s]
+1.0.Ncustom3: Per property time limit expired (16.00 s) [16.00 s]
+1.0.Ncustom3: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[16.01 s].
+1.0.Ncustom1: Trace Attempt 65	[0.02 s]
+1.0.Ncustom1: Per property time limit expired (16.00 s) [16.00 s]
+1.0.Ncustom1: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[16.01 s].
+1.0.Ncustom1: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom3: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom1: Trace Attempt 65	[0.02 s]
+1.0.Hp: Trace Attempt 71	[235.19 s]
+1.0.Ht: Trace Attempt 70	[237.15 s]
+1.0.Ncustom1: Per property time limit expired (32.00 s) [32.01 s]
+1.0.Ncustom1: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[32.01 s].
+1.0.Ncustom3: Trace Attempt 65	[0.02 s]
+1.0.Ncustom3: Per property time limit expired (32.00 s) [32.01 s]
+1.0.Ncustom3: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[32.01 s].
+1.0.Ncustom1: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom3: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom3: Trace Attempt 65	[0.02 s]
+1.0.Hp: Trace Attempt 72	[262.73 s]
+1.0.Ht: Trace Attempt 72	[283.87 s]
+1.0.Hp: Trace Attempt 73	[293.95 s]
+1.0.Ncustom3: Per property time limit expired (64.00 s) [64.01 s]
+1.0.Ncustom3: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[64.01 s].
+1.0.Ncustom1: Trace Attempt 65	[0.02 s]
+1.0.Ncustom1: Per property time limit expired (64.00 s) [64.01 s]
+1.0.Ncustom1: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[64.01 s].
+1.0.Ncustom1: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom3: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom1: Trace Attempt 65	[0.02 s]
+1.0.Hp: Trace Attempt 74	[330.86 s]
+1.0.Ht: Trace Attempt 73	[338.65 s]
+1.0.Hp: Trace Attempt 75	[371.51 s]
+1.0.Ht: Trace Attempt 75	[394.89 s]
+1.0.Hp: Trace Attempt 76	[406.76 s]
+1.0.Ncustom1: Per property time limit expired (128.00 s) [128.02 s]
+1.0.Ncustom1: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[128.02 s].
+1.0.Ncustom3: Trace Attempt 65	[0.02 s]
+1.0.Ncustom3: Per property time limit expired (128.00 s) [128.02 s]
+1.0.Ncustom3: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[128.02 s].
+1.0.Ncustom3: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom1: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom3: Trace Attempt 65	[0.02 s]
+1.0.Ht: Trace Attempt 76	[450.83 s]
+1.0.Hp: Trace Attempt 77	[454.48 s]
+1.0.Hp: Trace Attempt 78	[506.19 s]
+1.0.Ht: Trace Attempt 77	[510.72 s]
+1.0.Hp: Trace Attempt 79	[553.12 s]
+1.0.Hp: Interrupted (multi)
+1.0.Hp: Trace Attempt  1	[6.07 s]
+1.0.Hp: Trace Attempt  2	[6.07 s]
+1.0.Hp: Trace Attempt  3	[6.07 s]
+1.0.Hp: Trace Attempt  4	[6.07 s]
+1.0.Hp: Trace Attempt  5	[6.07 s]
+1.0.Ht: Trace Attempt 79	[619.04 s]
+1.0.Ncustom1: Trace Attempt 65	[0.02 s]
+1.0.Ncustom1: Per property time limit expired (256.00 s) [256.01 s]
+1.0.Ncustom1: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[256.02 s].
+1.0.Ncustom3: Per property time limit expired (256.00 s) [256.01 s]
+1.0.Ncustom3: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[256.02 s].
+1.0.Ncustom1: All properties determined. [0.00 s]
+1.0.Ncustom1: Exited with Success (@ 0.00 s)
+1: ProofGrid usable level: 1
+1.0.Ncustom3: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom10: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+1.0.Ncustom10: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom10: Trace Attempt 65	[0.02 s]
+1.0.Ht: Trace Attempt 80	[807.74 s]
+1.0.Hp: Trace Attempt 80	[247.49 s]
+1.0.Ht: Trace Attempt 81	[926.34 s]
+1.0.Hp: Trace Attempt 81	[411.46 s]
+1.0.Ht: Trace Attempt 82	[1068.71 s]
+1.0.Hp: Trace Attempt 82	[557.38 s]
+1.0.Ht: Trace Attempt 83	[1189.90 s]
+1.0.Ncustom3: Trace Attempt 65	[0.02 s]
+1.0.Ncustom3: Per property time limit expired (512.00 s) [512.02 s]
+1.0.Ncustom3: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[512.02 s].
+1.0.Ncustom10: Per property time limit expired (512.00 s) [512.02 s]
+1.0.Ncustom10: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[512.03 s].
+1.0.Ncustom10: All properties determined. [0.00 s]
+1.0.Ncustom10: Exited with Success (@ 0.00 s)
+1.0.Ncustom3: All properties determined. [0.00 s]
+1.0.Ncustom3: Exited with Success (@ 0.00 s)
+1.0.N: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+1.0.N: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom1: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+1.0.Ncustom1: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom1: Trace Attempt 65	[0.02 s]
+1.0.Hp: Trace Attempt 83	[666.21 s]
+1.0.Ht: Trace Attempt 84	[1305.04 s]
+1.0.Hp: Trace Attempt 84	[767.92 s]
+1.0.Ht: Trace Attempt 85	[1427.19 s]
+1.0.Hp: Trace Attempt 85	[863.09 s]
+1.0.Hp: Trace Attempt 86	[941.00 s]
+1.0.Ht: Trace Attempt 86	[1542.50 s]
+1.0.Hp: Trace Attempt 87	[1009.31 s]
+1.0.Ht: Trace Attempt 87	[1685.99 s]
+1.0.Hp: Trace Attempt 88	[1094.26 s]
+1.0.Ncustom1: Per property time limit expired (512.00 s) [512.02 s]
+1.0.Ncustom1: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[512.02 s].
+1.0.N: Trace Attempt 65	[0.02 s]
+1.0.N: Per property time limit expired (512.00 s) [512.02 s]
+1.0.N: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[512.02 s].
+1.0.N: All properties determined. [0.00 s]
+1.0.N: Exited with Success (@ 0.00 s)
+1.0.Ncustom10: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+1.0.Ncustom10: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Hp: Trace Attempt 89	[1189.81 s]
+1.0.Ht: Trace Attempt 88	[1840.11 s]
+1.0.Hp: Trace Attempt 90	[1267.03 s]
+1.0.Hp: Trace Attempt 91	[1353.87 s]
+1.0.Ht: Trace Attempt 90	[2027.76 s]
+1.0.Ncustom1: Requesting engine job to terminate
+1.0.Ncustom1: Interrupted. [812.04 s]
+1.0.Ncustom1: Exited with Success (@ 2031.49 s)
+1.0.Hp: Trace Attempt 92	[1458.63 s]
+1.0.Hp: Trace Attempt 93	[1566.02 s]
+1.0.Ht: Trace Attempt 92	[2281.32 s]
+1.0.Hp: Trace Attempt 94	[1700.68 s]
+1.0.Hp: Trace Attempt 95	[1836.99 s]
+1.0.Ht: Trace Attempt 94	[2582.15 s]
+1.0.Hp: Trace Attempt 96	[1989.71 s]
+1.0.Hp: Trace Attempt 97	[2169.32 s]
+1.0.Ncustom10: Trace Attempt 65	[0.02 s]
+1.0.Ncustom10: Per property time limit expired (1024.00 s) [1024.02 s]
+1.0.Ncustom10: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[1024.02 s].
+1.0.Ncustom10: All properties determined. [0.00 s]
+1.0.Ncustom10: Exited with Success (@ 0.00 s)
+1.0.N: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+1.0.N: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.N: Trace Attempt 65	[0.02 s]
+1.0.Ht: Trace Attempt 96	[2926.34 s]
+1.0.Hp: Trace Attempt 98	[2338.70 s]
+1.0.Hp: Trace Attempt 99	[2520.77 s]
+1.0.Hp: Trace Attempt 100	[2685.77 s]
+1.0.Ht: Trace Attempt 98	[3294.38 s]
+1.0.Hp: Trace Attempt 101	[2883.56 s]
+1.0.Hp: Trace Attempt 102	[3093.10 s]
+1.0.Ht: Trace Attempt 101	[3784.72 s]
+1.0.N: Per property time limit expired (1024.00 s) [1024.03 s]
+1.0.N: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[1024.03 s].
+1.0.N: All properties determined. [0.00 s]
+1.0.N: Exited with Success (@ 0.00 s)
+1.1.Ncustom1: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+1.0.Ncustom3: OS virtual memory limit : 64.00 GiB / 128.00 GiB
+1.0.Ncustom3: Proofgrid shell started at 299906@deimos.ece.pdx.edu(local) jg_238163_deimos.ece.pdx.edu_2
+1.0.Ncustom3: Connected successfully after 0.00s.
+1.1.Ncustom1: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom3: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+1.0.Ncustom3: Next scan (0) will use per property time limit: 1s * 10 ^ 0 = 1s
+1.0.Ncustom3: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom3: Trace Attempt 65	[0.01 s]
+1.1.Ncustom1: Trace Attempt 65	[0.02 s]
+1.0.Hp: Trace Attempt 103	[3304.91 s]
+1.0.Hp: Trace Attempt 104	[3567.63 s]
+1.0.Ht: Trace Attempt 103	[4440.36 s]
+1.0.Hp: Trace Attempt 105	[3905.85 s]
+1.0.Hp: Trace Attempt 106	[4266.77 s]
+1.0.Hp: Trace Attempt 107	[4626.55 s]
+1.0.Ht: Trace Attempt 105	[5326.17 s]
+1.0.Hp: Trace Attempt 108	[5033.18 s]
+1.1.Ncustom1: Per property time limit expired (2048.00 s) [2048.03 s]
+1.1.Ncustom1: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[2048.03 s].
+1.0.Ncustom3: Per property time limit expired (2048.00 s) [2048.03 s]
+1.0.Ncustom3: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[2048.04 s].
+1.1.Ncustom1: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom3: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Hp: Trace Attempt 109	[5491.54 s]
+1.0.Hp: Trace Attempt 110	[5923.68 s]
+1.0.Ht: Trace Attempt 108	[6835.55 s]
+1.0.Hp: Trace Attempt 111	[6392.38 s]
+1.0.Hp: Trace Attempt 112	[7051.90 s]
+1.0.Hp: Trace Attempt 113	[7816.38 s]
+1.0.Ht: Trace Attempt 111	[8905.57 s]
+1.0.Hp: Trace Attempt 114	[8556.15 s]
+1.0.Ncustom3: Trace Attempt 65	[0.02 s]
+1.0.Ncustom3: Per property time limit expired (4096.00 s) [4096.03 s]
+1.0.Ncustom3: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[4096.03 s].
+1.1.Ncustom1: Trace Attempt 65	[0.02 s]
+1.1.Ncustom1: Per property time limit expired (4096.00 s) [4096.04 s]
+1.1.Ncustom1: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[4096.04 s].
+1.1.Ncustom1: All properties determined. [0.00 s]
+1.1.Ncustom1: Exited with Success (@ 0.00 s)
+1.0.Ncustom3: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.N: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+1.0.N: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.0.Ncustom3: Trace Attempt 65	[0.03 s]
+1.0.Hp: Trace Attempt 115	[9387.53 s]
+1.0.Hp: Trace Attempt 116	[10389.00 s]
+1.0.Ht: Trace Attempt 114	[11289.91 s]
+1.0.Hp: Trace Attempt 117	[11289.44 s]
+1.0.Hp: Trace Attempt 118	[12229.79 s]
+1.0.Ht: Trace Attempt 117	[13879.87 s]
+1.0.Hp: Trace Attempt 119	[13447.87 s]
+1.0.Hp: Trace Attempt 120	[14846.95 s]
+1.0.Ht: Trace Attempt 119	[16464.73 s]
+1.0.Hp: Trace Attempt 121	[16833.31 s]
+1.0.N: Trace Attempt 65	[0.02 s]
+1.0.N: Per property time limit expired (8192.00 s) [8192.05 s]
+1.0.N: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[8192.06 s].
+1.0.Ncustom3: Per property time limit expired (8192.00 s) [8192.07 s]
+1.0.Ncustom3: Stopped processing property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[8192.07 s].
+1.0.Ncustom3: All properties determined. [0.00 s]
+1.0.Ncustom3: Exited with Success (@ 0.00 s)
+1.1.Ncustom1: clocks: 1, declared: 1, looping: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+1.1.Ncustom1: Starting proof for property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window"	[0.00 s].
+1.1.Ncustom1: Trace Attempt 65	[0.02 s]
+1.0.N: Requesting engine job to terminate
+1.0.N: Interrupted. [8492.41 s]
+1.0.N: Exited with Success (@ 18446.82 s)
+1.0.Hp: Trace Attempt 122	[18323.20 s]

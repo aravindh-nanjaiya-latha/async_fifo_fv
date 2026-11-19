@@ -1,0 +1,40 @@
+H5 rung -- bounded result, harvested from the session log.
+(Console `report` was not taken; the interactive session was killed 2026-11-05 18:0x PST.
+ Raw log + command sequence preserved alongside this file.)
+
+Machine : deimos.ece.pdx.edu, Jasper 2026.06, session_0 pid 238163, started 12:18:31 PST
+Setup   : set NOPROVE 1; include scripts/afifo/fv_afifo.tcl
+          set_proofgrid_max_local_jobs 4
+          set_proofgrid_engineL_max_jobs 0 ; set_proofgrid_engineJ_max_jobs 0
+          (no TUNNEL -> helpers compiled as ASSERTIONS)
+
+--------------------------------------------------------------------
+RUNG 1  hlp_h0_occ_equals_ptr_distance            PROVEN
+--------------------------------------------------------------------
+  prove -property {...hlp_h0_occ_equals_ptr_distance} -engine_mode {Hp N Ht}
+  INFO (IPF057): 0.0.Ncustom10: proven in 397.48 s
+  Engine ladder before the win: N (10 s, 100 s, 70 s) -> Ncustom1/Ncustom3
+  (1 s .. 256 s doubling) -> Ncustom10 closed it.
+  Bounded engines had reached depth 438 when the proof landed.
+
+--------------------------------------------------------------------
+RUNG 2  hlp_h5_tracked_slot_in_window             NOT PROVEN, NO CEX
+--------------------------------------------------------------------
+  prove -property {...hlp_h5_tracked_slot_in_window} -engine_mode {Hp N Ht}
+  Elapsed 5 h 12 m (12:44 -> 17:56 PST), then killed. Cap was 20 min.
+
+  Bounded search, no counterexample at any depth reached:
+      Hp  trace attempt 122
+      Ht  trace attempt 119
+  Induction: all N-family instances stalled at trace attempt 65 and hit the
+  per-property time limit repeatedly (2048 s -> 4096 s -> 8192 s doubling),
+  41 timeout/restart events total. No inductive proof, no induction CEX reported.
+
+  Reading: H5 is sound as far as 119 cycles of bounded search can tell, but it is
+  not an inductive invariant the engines can close. Diagnosis (2026-11-05): H5 is
+  clocked on w_clk while every term in it (pdiff(slot_tracked,b_rptr), occ) only
+  moves on r_clk, and the `<` relation gives induction no per-step handle.
+
+  Contention note: deimos load was 22-38 for the earlier DW=8 (17.3 h / bound 117)
+  and DW=2 (24 min / bound 87) runs. At the end of THIS run load was 3.7 with 51 GB
+  free, so this 5 h 12 m is a largely uncontended measurement.

@@ -1,23 +1,21 @@
-# Jasper CDC App — Working Reference
+# Jasper CDC App: Working Reference
 
 A practical reference for clock-domain-crossing and reset-domain-crossing verification
 with the Jasper CDC App. Written while bringing up a CDC flow on an asynchronous FIFO
 (Jasper 2026.06).
 
-**How to read this.** Items marked ✅ were exercised and verified in this project — the
+**How to read this.** Items marked ✅ were exercised and verified in this project: the
 behaviour described was observed, not assumed. Items marked 📖 come from the tool
 documentation and the companion reference script (`scripts/cdc/cdc_reference.tcl`) but
 were not exercised here; confirm against the user guide for your version before relying
 on them.
 
 Companion documents:
-- `docs/cdc/CDC_APPROACH.md` — what was actually done on this project and why
-- `scripts/cdc/cdc_reference.tcl` — the full annotated command template
-- `scripts/cdc/golden_cdc.tcl` — a complete working run
+- `docs/cdc/CDC_APPROACH.md`: what was actually done on this project and why
+- `scripts/cdc/cdc_reference.tcl`: the full annotated command template
+- `scripts/cdc/golden_cdc.tcl`: a complete working run
 
----
-
-# Part 1 — What the app is, and the mental model
+# Part 1: What the app is, and the mental model
 
 ## 1.1 The three analysis phases
 
@@ -34,19 +32,19 @@ The phases are ordered for a reason: a structurally clean design can still fail
 functionally, and a functionally clean design can still fail under metastability. Do not
 skip forward.
 
-## 1.2 How the tool thinks — five steps ✅
+## 1.2 How the tool thinks: five steps ✅
 
 After elaboration the tool does not see "a FIFO". It sees flops joined by wires and
 gates, and it proceeds like this:
 
-1. **Build the netlist** — `analyze`, `elaborate`.
-2. **Paint clock domains** — follow each declared clock through the clock tree and colour
+1. **Build the netlist**: `analyze`, `elaborate`.
+2. **Paint clock domains**: follow each declared clock through the clock tree and colour
    every flop it reaches. A flop's output carries its colour.
-3. **Find crossings (pairs)** — for every flop→flop path, compare the two colours. If the
+3. **Find crossings (pairs)**: for every flop→flop path, compare the two colours. If the
    domains are *asynchronous*, that path is a **CDC pair**.
-4. **Match schemes** — at each pair's destination, pattern-match the structure against a
+4. **Match schemes**: at each pair's destination, pattern-match the structure against a
    library of synchronizer shapes (NDFF, mux, handshake, FIFO, pulse, edge, …).
-5. **Check around the schemes** — look for hazards a synchronizer cannot fix:
+5. **Check around the schemes**: look for hazards a synchronizer cannot fix:
    convergence, glitch, reset release.
 
 `check_cdc -setup` performs steps 1–2 plus reset bookkeeping. `check_cdc -extract`
@@ -65,20 +63,18 @@ performs steps 3–5.
 
 | Hazard | Caught by |
 |---|---|
-| Values at clock edges — ordering, data integrity, pointer arithmetic | **FPV** |
+| Values at clock edges: ordering, data integrity, pointer arithmetic | **FPV** |
 | Combinational logic driving a synchronizer input (glitch) | **CDC app** (structural). FPV is blind: it has no sub-cycle time |
 | Multi-bit crossing without a safe encoding | **CDC app** (structural) |
 | Gray coding actually holding, including at the wrap | **FPV**. The CDC app *believes* a gray-code declaration, it does not prove it |
 | Reconvergence of separately synchronized bits | **CDC app** (structural). FPV only with metastability injection |
 | Reset-domain crossings | **CDC app** |
-| A design's own guard (e.g. no pop on empty) | Either — as an FPV assertion, or as a **custom CDC protocol check** |
+| A design's own guard (e.g. no pop on empty) | Either: as an FPV assertion, or as a **custom CDC protocol check** |
 
 One line: **FPV checks what the values are at clock ticks; the CDC app checks whether the
 structure could produce bad values between them.**
 
----
-
-# Part 2 — Session and design setup
+# Part 2: Session and design setup
 
 ## 2.1 Starting a session ✅
 
@@ -106,20 +102,18 @@ elaborate -top <top>
 ```
 
 Options worth knowing 📖:
-- `elaborate -bbox_m {ip1 ip2}` — black-box modules you do not want analysed internally.
+- `elaborate -bbox_m {ip1 ip2}`: black-box modules you do not want analysed internally.
   Useful for third-party IP; note that black-boxing moves the obligation to the boundary.
-- `liberty -load <lib>` — load Liberty models *before* elaboration so cell timing arcs
+- `liberty -load <lib>`: load Liberty models *before* elaboration so cell timing arcs
   can be used for clock-domain inference on hard macros.
-- `read_sdc <file>` — import clock definitions, clock groups and port constraints
+- `read_sdc <file>`: import clock definitions, clock groups and port constraints
   instead of hand-writing them.
 
 **Decide what to include.** For verifying a block's own crossings, analyse the RTL
 **only**. Pulling a verification checker into the CDC session adds its auxiliary flops as
 real crossings and buries the design's crossings in testbench noise. ✅
 
----
-
-# Part 3 — Environment setup (where most mistakes live)
+# Part 3: Environment setup (where most mistakes live)
 
 This is the part that decides whether the analysis is meaningful. Every item below
 changes *what gets checked*, not just how it is reported.
@@ -146,7 +140,7 @@ config_rtlds -rule -parameter {all_clocks_sync_by_default = false}
 | **Async mode** | `false` | Every clock is **asynchronous** to every other unless declared synchronous. |
 
 In STA mode with two undeclared-relationship clocks, **no path qualifies as a crossing**.
-The run reports **zero pairs and zero violations** — a clean-looking report that checked
+The run reports **zero pairs and zero violations**: a clean-looking report that checked
 nothing. ✅ *This happened on this project and is the reason for the sanity check in
 §8.1.*
 
@@ -165,9 +159,9 @@ To declare an *internal* net as a clock, remove its driver first
 (`stopat -env <net>`), then create the clock on it. 📖
 
 Related parameters 📖:
-- `generated_clocks_sync_to_parents` — whether a generated clock is assumed synchronous
+- `generated_clocks_sync_to_parents`: whether a generated clock is assumed synchronous
   to its source.
-- `use_sdc_clock_period` — derive clock factors from SDC `create_clock -period`.
+- `use_sdc_clock_period`: derive clock factors from SDC `create_clock -period`.
 
 ## 3.2 Resets ✅
 
@@ -186,13 +180,13 @@ config_rtlds -reset -async        rst_n -polarity low -virtual
 | `-virtual` | Reset originating outside the current top boundary. |
 
 **Only resets declared here are considered by the structural analysis.** An undeclared
-reset is invisible — the tool says so explicitly in the log (ICDC030). ✅
+reset is invisible: the tool says so explicitly in the log (ICDC030). ✅
 
 **Why the choice matters.** Asserting an async reset is always safe. *Releasing* it is
 the hazard: a release near a clock edge can violate recovery/removal timing, so flops may
 go metastable or leave reset in different cycles. Declaring `-async` on a block that has
 no internal reset synchronizer produces `RST_NO_SYNC` on every reset-domain crossing.
-Declaring `-synchronized` states the contract that the reset was synchronized upstream —
+Declaring `-synchronized` states the contract that the reset was synchronized upstream,
 which is **an assumption, and must be recorded as one**. ✅
 
 Reset ordering 📖:
@@ -219,11 +213,11 @@ The name is assigned when the clock is created and appears in the setup report's
 *Declared Clocks* table.
 
 Abstract ratings 📖:
-- `sync_to_all` — synchronous to every clock in the design.
-- `async_to_all` — asynchronous to every clock in the design.
-- `config_rtlds -port <p> -external_sync -source_clock <c1> -destination_clock <c2>` —
+- `sync_to_all`: synchronous to every clock in the design.
+- `async_to_all`: asynchronous to every clock in the design.
+- `config_rtlds -port <p> -external_sync -source_clock <c1> -destination_clock <c2>`:
   the port was already synchronized outside the block.
-- `config_rtlds -port {pin} -module <bbox> -clock <clk>` — rate a black-box pin.
+- `config_rtlds -port {pin} -module <bbox> -clock <clk>`: rate a black-box pin.
 
 Global fallbacks 📖: `treat_data_ports_as_async` and `treat_data_ports_reset_as_async`
 (`all | none | primary_inputs | …`) decide what happens to ports you did not rate.
@@ -238,7 +232,7 @@ its fanout, the data fanout is analysed as data, and the tool raises `CLK_NO_DEC
 any signal acting as an undeclared clock. Clock ports themselves commonly remain in
 `PRT_IS_UNCK`; that is this case, not a gap. ✅
 
-## 3.4 Signal configurations — design intent ✅/📖
+## 3.4 Signal configurations: design intent ✅/📖
 
 These tell the tool facts about signal *behaviour* that structure cannot reveal.
 
@@ -275,14 +269,14 @@ config_rtlds -signal -false_path -from clkA -to clkB -through bypass
    ##1 $changed({rgray, wgray}) |-> $onehot({rgray, wgray} ^ $past({rgray, wgray}))
    ```
    If both buses each advance one bit in the same sampled instant, two bits differ and
-   the claim fails — although both behaved correctly. **Declare one signal per command.**
+   the claim fails, although both behaved correctly. **Declare one signal per command.**
 
 3. **A configuration can be inert.** Its effect depends on what else is enabled. Verify
    by running with and without it and diffing the violation report; do not assume a
    setting is load-bearing because it looks important. ✅
 
 `config_rtlds -signal -prove` 📖 formally checks whether constant / static / exclusive
-constraints actually hold in the RTL — worth running rather than trusting the
+constraints actually hold in the RTL: worth running rather than trusting the
 declarations.
 
 ### Safe-RDC and low-power constraints 📖
@@ -294,9 +288,7 @@ config_rtlds -signal -power_control iso_ctrl -both -inactive_clock clk
 State that the clock is inactive or data constant when a reset or power-control signal
 changes, making the crossing safe by construction.
 
----
-
-# Part 4 — Scheme recognition
+# Part 4: Scheme recognition
 
 ## 4.1 Automatic detection ✅/📖
 
@@ -377,7 +369,7 @@ check_cdc -scheme -add my_sync -module my_mod -map {{Data din} {Dout dout} {Enab
 
 **Consequence:** a `-module` user-defined scheme is a *black-box, port-level*
 description. When one was accepted on a design whose internals mattered, the resulting
-scheme lost its pointer signals, the synchronizer stage flops and the NDFF chains — the
+scheme lost its pointer signals, the synchronizer stage flops and the NDFF chains: the
 tool stopped looking inside. For a block whose internals are the subject of verification,
 **automatic detection is strictly better**; reserve user-defined schemes for genuine IP
 black boxes.
@@ -388,9 +380,7 @@ check_cdc -glitch_free -add -module {gf_mux gf_and}
 ```
 Marks custom combinational cells as glitch-free so they stop producing glitch violations.
 
----
-
-# Part 5 — Structural analysis
+# Part 5: Structural analysis
 
 ```tcl
 check_cdc -setup       ;# clocks, resets, ports, consistency
@@ -428,7 +418,7 @@ wrong, which makes everything downstream untrustworthy.
 | `PRT_IS_UNCK` | port with no clock association |
 | `USR_FN_PROP` | a user-supplied functional property failed |
 
-## 5.3 Violation grouping — read the real count ✅
+## 5.3 Violation grouping: read the real count ✅
 
 ```tcl
 check_cdc -violation -group (none | basic | advanced)
@@ -465,9 +455,7 @@ detailed waiver report listed **10** distinct occurrences. Report the real numbe
 | `autowaive_rdc_with_ndff` | auto-waive RDC when the data path has an NDFF |
 | `treat_boundaries_as_rdc` | flag boundary ports without reset association |
 
----
-
-# Part 6 — Functional analysis
+# Part 6: Functional analysis
 
 ```tcl
 check_cdc -protocol_check -generate
@@ -478,7 +466,7 @@ check_cdc -protocol_check -prove
 flag protocol, handshake phases, …); `-prove` runs the formal engine on them.
 `-generate -include_failed_schemes` 📖 also covers schemes with structural violations.
 
-## 6.1 Custom protocol checks — the most useful facility here ✅
+## 6.1 Custom protocol checks: the most useful facility here ✅
 
 ```tcl
 check_cdc -protocol_check -add <name> \
@@ -491,7 +479,7 @@ and the tool substitutes the actual signals **from the scheme's connection map**
 
 **Why this matters.** On an automatically detected scheme, the connection map is already
 bound to internal nets. So a template referring to `%rptr` reaches the design's internal
-pointer — **without** the port-only restriction that blocks `check_cdc -scheme -map`.
+pointer: **without** the port-only restriction that blocks `check_cdc -scheme -map`.
 This is the way to express a design-specific claim about internal signals.
 
 Working example from this project:
@@ -510,17 +498,17 @@ scheme.
 ## 6.2 Built-in checks may ask the wrong question ✅
 
 The built-in `POP_ON_EMTY` maps `Rinc` to the raw request port, so it asks
-*"does anyone ever request a read while empty?"* — a question about the **environment**.
+*"does anyone ever request a read while empty?"*: a question about the **environment**.
 A FIFO whose contract permits such a request and ignores it internally will CEX on a
 correct design.
 
-The useful question is *"does such a request do anything?"* — a question about the
+The useful question is *"does such a request do anything?"*: a question about the
 **design**. That is what the custom checks above express.
 
 **The decision rule:**
 
 > If the design protects itself, **assert its guard and prove it**.
-> If it does not, the obligation is **external** — declare it and record it as an
+> If it does not, the obligation is **external**: declare it and record it as an
 > assumption.
 > An assumption standing in for a guard that exists is never acceptable: it deletes
 > exactly the traces that would expose a broken guard.
@@ -535,14 +523,12 @@ check_cdc -export -type waiver_cond_property   -file wvr.sv -force
 Runs the same protocol checks, signal-config checks and conditional waivers inside a
 simulation regression.
 
----
-
-# Part 7 — Waivers
+# Part 7: Waivers
 
 ## 7.1 The three honest ways to close a violation ✅
 
 1. **Fix the design.**
-2. **Fix the setup** — the violation came from an incomplete or wrong environment.
+2. **Fix the setup**: the violation came from an incomplete or wrong environment.
 3. **Waive it with evidence.**
 
 A waiver's quality *is* the quality of its evidence.
@@ -558,10 +544,10 @@ check_cdc -waiver -add -reason <reason> [-comment <text>]
 |---|---|
 | `-filter <id>` | waive the violations a filter selects |
 | `-hierarchy <inst>` | suppress internal violations of third-party IP while keeping boundary checks |
-| `-expression <sva>` | attach a **condition** the tool can prove — a *conditional waiver* |
+| `-expression <sva>` | attach a **condition** the tool can prove: a *conditional waiver* |
 | `-reason <R>` | a built-in reason the tool converts to a formal expression |
 
-Filters select violations by many criteria — `-tag`, `-violation_key`, `-severity`,
+Filters select violations by many criteria: `-tag`, `-violation_key`, `-severity`,
 `-module`, `-scheme`, `-detection_type`, and more:
 ```tcl
 set f [check_cdc -filter -add -tag POP_ON_EMTY]
@@ -587,16 +573,16 @@ tool tries to *break* your justification.
 
 - **Reasons are tag-specific.** Run `check_cdc -list waiver_reasons` first. In this
   project **no reason existed for `POP_ON_EMTY` / `PSH_ON_FULL`**, so `-waiver -generate`
-  never attempted them — "not attempted" is very different from "attempted and passed".
+  never attempted them: "not attempted" is very different from "attempted and passed".
 - **`SEE_COMMENTS` is always available and always `Unvalidatable`.** It cannot be checked
   by the formal engine. It is acceptable only when the comment cites evidence proven
-  elsewhere — and the comment text appears inline in the violation report, so write it
+  elsewhere, and the comment text appears inline in the violation report, so write it
   for a reviewer.
 - **`check_cdc -waiver -prove` changes the session**: it switches clock sampling to both
   edges (`WCDC250`) and invalidates existing proof results. Re-run the functional phase
   afterwards, or do waiver proving last.
 - **`-waiver -accept`** marks waivers as user waivers that are *always* considered valid
-  regardless of status. Use with care — it defeats the point of proving them.
+  regardless of status. Use with care: it defeats the point of proving them.
 - `-export` / `-import` move waivers between sessions; `-export` writes them as
   `check_cdc -waiver -add` commands.
 
@@ -607,9 +593,7 @@ yields a CEX. With an implication operator (`|->` / `|=>`) the tool also derives
 from the antecedent, guarding against a vacuous precondition. This is the mechanism to
 use when a built-in reason does not fit but the claim *is* provable.
 
----
-
-# Part 8 — Discipline: making a clean report mean something
+# Part 8: Discipline: making a clean report mean something
 
 ## 8.1 Predict, then assert the prediction ✅
 
@@ -650,20 +634,18 @@ run becomes a diff rather than a fresh interpretation.
 ## 8.4 Write assumptions where a reviewer will find them ✅
 
 Every `-synchronized` reset, every signal configuration, every `SEE_COMMENTS` waiver is
-an obligation moved elsewhere. Keep them in a dedicated document (`docs/assumptions.md`)
-and reference it from the script. An unrecorded assumption is a hidden hole.
+an obligation moved elsewhere. Keep them in one place a reviewer will read (in this project,
+assumption A1 in `docs/cdc/CDC_APPROACH.md` section 4.9) and reference it from the script. An unrecorded assumption is a hidden hole.
 
----
-
-# Part 9 — Metastability analysis 📖
+# Part 9: Metastability analysis 📖
 
 ```tcl
 check_cdc -metastability -inject [-include_reset] [-include_protocol_check]
 check_cdc -metastability -prove
 ```
 
-Injection models real synchronizer behaviour — a crossing may resolve to the old or the
-new value, taking 2 *or* 3 cycles — inside the cone of influence of user properties, then
+Injection models real synchronizer behaviour (a crossing may resolve to the old or the
+new value, taking 2 *or* 3 cycles) inside the cone of influence of user properties, then
 re-proves them. This is the phase that exposes **reconvergence** bugs, which ordinary
 FPV cannot see because it models synchronizers as exactly-2-cycle ideal flops.
 
@@ -682,9 +664,7 @@ a `+define+`).
 user properties has nothing to re-prove, which is the natural point to bring an FPV
 checker into the flow.
 
----
-
-# Part 10 — Reporting and debug ✅
+# Part 10: Reporting and debug ✅
 
 ```tcl
 file mkdir ./reports
@@ -728,9 +708,7 @@ Tool-internal nets appear in generated properties with a leading colon (e.g. `:t
 and **cannot be added to a waveform**. Map them back to RTL signals through the relevant
 RTL assignment and plot those instead. ✅
 
----
-
-# Part 11 — Quick troubleshooting index ✅
+# Part 11: Quick troubleshooting index ✅
 
 | Symptom | Likely cause | Check |
 |---|---|---|
@@ -747,9 +725,7 @@ RTL assignment and plot those instead. ✅
 | Report shows Error, not Waived | reports generated before waivers | move report commands after the waivers |
 | `cd $ROOT` fails in the shell | `$ROOT` is a Tcl variable inside Jasper only | `export ROOT=$(git rev-parse --show-toplevel)` |
 
----
-
-# Part 12 — A minimal correct flow ✅
+# Part 12: A minimal correct flow ✅
 
 ```tcl
 clear -all
@@ -798,13 +774,11 @@ check_cdc -report -waiver -detailed -file ./reports/waivers.txt -force
 check_cdc -report -signoff   -file ./reports/signoff.txt -force
 ```
 
----
-
 ## Closing principle
 
 A CDC report is only as strong as the setup behind it. The two failure modes that matter
 are **a clean report that checked nothing** and **a violation closed by assuming it
 away**. Guard against the first by predicting results and asserting the prediction;
 guard against the second by closing every violation with a fix, a proof, or a written
-assumption — and never with an assumption that substitutes for a guard the design
+assumption: and never with an assumption that substitutes for a guard the design
 already has.

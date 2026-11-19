@@ -1,0 +1,185 @@
+INFO: successfully checked out license "jasper_fao".
+INFO: reading configuration file "/u/aravindh/.config/cadence/jasper.conf".
+INFO (IPF121): Cleared environment completely for new design analysis.
+INFO (ISW003): Top module name is "top".
+INFO (INL217): RTL analysis concluded with an average file read speed of 165 Mbps.
+INFO (INL208): Elaboration synthesis summary:
+INFO (IPM034): Property Status database configuration set to: memory.
+INFO (INL003): Clearing all state information (assumes, stopats, and so forth).
+INFO (IPM031): Clearing proof results of all properties.
+INFO (IRS006): Current reset condition is "wrst_n rrst_n".
+@@@ ELAB OK Thu Nov  5 10:00:03 PM PST 2026
+@@@ SPLIT PROPS:
+@@@ P <embedded>::top.t1s_inst.t1s_range
+@@@ P <embedded>::top.t1s_inst.t1s_range:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[9].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[9].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[10].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[10].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[11].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[11].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[12].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[12].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[13].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[13].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[14].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[14].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[15].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[15].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[16].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[16].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[17].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[17].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[18].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[18].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[19].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[19].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[20].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[20].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[21].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[21].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[22].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[22].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[23].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[23].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[24].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[24].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[25].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[25].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[26].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[26].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[27].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[27].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[28].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[28].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[29].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[29].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[30].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[30].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[31].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[31].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[32].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[32].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[33].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[33].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[34].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[34].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[35].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[35].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[36].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[36].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[37].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[37].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[38].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[38].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[39].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[39].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[40].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[40].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[41].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[41].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[42].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[42].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[43].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[43].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[44].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[44].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[45].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[45].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[46].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[46].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[47].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[47].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[48].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[48].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[49].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[49].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[50].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[50].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[51].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[51].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[52].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[52].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[53].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[53].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.g_slot[54].t1s
+@@@ P <embedded>::top.t1s_inst.g_slot[54].t1s:precondition1
+@@@ P <embedded>::top.t1s_inst.cov_t1s_pending
+@@@ RUNG top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance START Thu Nov  5 10:00:03 PM PST 2026
+INFO (IPF036): Starting proof on task: "<embedded>", 1 properties to prove with 0 already proven/unreachable
+INFO (IRS029): Starting reset analysis: phase 1 of 4.
+INFO (IRS030): Running reset analysis: phase 2 of 4.
+INFO (IRS031): Running reset analysis: phase 3 of 4.
+INFO (IRS020): Starting the reset analysis simulation with a limit of 100 iterations (phase 4 of 4).
+INFO (ISIM006): Running simulation: {mode = single, probe = all}.
+INFO (IRS024): Reset iterations 0 to 4 analyzed.
+INFO (ISIM008): Simulation is processing trace data. Total number of nets in analysis 2430.
+INFO (IRS018): Reset analysis simulation executed for 3 iterations. Assigned values for 440 of 448 design flops, 0 of 0 design latches, 280 of 294 internal elements.
+INFO (IRS039): Reset analysis complete.
+INFO (IPF143): 0: Word Level Reduction Summary: inputs from 8 to 3 bits, flops and latches from 60 to 55 bits.
+INFO (IPF031): Settings used for proof thread 0:
+INFO (IPF057): 0.0.PRE: The property ":noDeadEnd" was proven in 0.00 s.
+INFO (IPF057): 0.0.PRE: The property ":noConflict" was proven in 0.00 s.
+INFO (IPF047): 0.0.PRE: The cover property ":live" was covered in 1 cycles in 0.00 s.
+INFO (IPF057): 0.0.Gcustom5: The property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance" was proven in 22.11 s.
+INFO (IPF144): 0: Initiating shutdown of proof [60.69 s]
+INFO (IPF180): 0: ProofGrid utilization: 99.84% slot-seconds: 242.77
+INFO (IPF059): 0: Completed proof on task: "<embedded>"
+@@@ RUNG top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance RETURNED Thu Nov  5 10:01:04 PM PST 2026
+INFO (IPM037): Check whether this operation overconstrains the design and might cause vacuity.
+@@@ ZOK top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance
+@@@ RUNG top.tc_checker_inst.hlp_h5_tracked_slot_in_window START Thu Nov  5 10:01:04 PM PST 2026
+INFO (IPF036): Starting proof on task: "<embedded>", 1 properties to prove with 0 already proven/unreachable
+INFO (IPF143): 1: Word Level Reduction Summary: No reduction.
+INFO (IPF031): Settings used for proof thread 1:
+INFO (IPF057): 1.0.C: The property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window" was proven in 115.08 s.
+INFO (IPF144): 1: Initiating shutdown of proof [256.04 s]
+INFO (IPF180): 1: ProofGrid utilization: 99.97% slot-seconds: 1024.13
+INFO (IPF059): 1: Completed proof on task: "<embedded>"
+@@@ RUNG top.tc_checker_inst.hlp_h5_tracked_slot_in_window RETURNED Thu Nov  5 10:05:23 PM PST 2026
+@@@ ZOK top.tc_checker_inst.hlp_h5_tracked_slot_in_window
+@@@ RUNG top.tc_checker_inst.hlp_t3_check_reads_tracked_slot START Thu Nov  5 10:05:23 PM PST 2026
+INFO (IPF036): Starting proof on task: "<embedded>", 1 properties to prove with 0 already proven/unreachable
+INFO (IPF143): 2: Word Level Reduction Summary: No reduction.
+INFO (IPF031): Settings used for proof thread 2:
+INFO (IPF057): 2.0.C: The property "top.tc_checker_inst.hlp_t3_check_reads_tracked_slot" was proven in 53.31 s.
+INFO (IPF144): 2: Initiating shutdown of proof [191.61 s]
+INFO (IPF180): 2: ProofGrid utilization: 99.94% slot-seconds: 766.42
+INFO (IPF059): 2: Completed proof on task: "<embedded>"
+@@@ RUNG top.tc_checker_inst.hlp_t3_check_reads_tracked_slot RETURNED Thu Nov  5 10:08:36 PM PST 2026
+@@@ ZOK top.tc_checker_inst.hlp_t3_check_reads_tracked_slot
+@@@ RUNG top.tc_checker_inst.hlp_t2_no_overwrite_while_pending START Thu Nov  5 10:08:36 PM PST 2026
+INFO (IPF036): Starting proof on task: "<embedded>", 1 properties to prove with 0 already proven/unreachable
+INFO (IPF143): 3: Word Level Reduction Summary: No reduction.
+INFO (IPF031): Settings used for proof thread 3:
+INFO (IPF057): 3.0.I: The property "top.tc_checker_inst.hlp_t2_no_overwrite_while_pending" was proven in 0.09 s.
+INFO (IPF144): 3: Initiating shutdown of proof [0.09 s]
+INFO (IPF180): 3: ProofGrid utilization: 46.79% slot-seconds: 0.38
+INFO (IPF059): 3: Completed proof on task: "<embedded>"
+@@@ RUNG top.tc_checker_inst.hlp_t2_no_overwrite_while_pending RETURNED Thu Nov  5 10:08:36 PM PST 2026
+@@@ ZOK top.tc_checker_inst.hlp_t2_no_overwrite_while_pending
+@@@ RUNG top.t1s_inst.t1s_range START Thu Nov  5 10:08:36 PM PST 2026
+INFO (IPF036): Starting proof on task: "<embedded>", 1 properties to prove with 0 already proven/unreachable
+INFO (IPF143): 4: Word Level Reduction Summary: No reduction.
+INFO (IPF031): Settings used for proof thread 4:
+INFO (IPF057): 4.1.Gcustom5: The property "top.t1s_inst.t1s_range" was proven in 366.67 s.
+INFO (IPF144): 4: Initiating shutdown of proof [1037.86 s]
+INFO (IPF180): 4: ProofGrid utilization: 99.98% slot-seconds: 3107.74
+INFO (IPF059): 4: Completed proof on task: "<embedded>"
+@@@ RUNG top.t1s_inst.t1s_range RETURNED Thu Nov  5 10:25:54 PM PST 2026
+@@@ ZOK top.t1s_inst.t1s_range
+@@@ PILOT RUNGS Thu Nov  5 10:25:54 PM PST 2026
+@@@ RUNG top.t1s_inst.g_slot[9].t1s START Thu Nov  5 10:25:54 PM PST 2026
+INFO (IPF036): Starting proof on task: "<embedded>", 1 properties to prove with 0 already proven/unreachable
+INFO (IPF143): 5: Word Level Reduction Summary: inputs from 16 to 11 bits, flops and latches from 85 to 75 bits.
+INFO (IPF031): Settings used for proof thread 5:
+INFO (IPF057): 5.0.I: The property "top.t1s_inst.g_slot[9].t1s" was proven in 1.55 s.
+INFO (IPF144): 5: Initiating shutdown of proof [2.56 s]
+INFO (IPF180): 5: ProofGrid utilization: 96.09% slot-seconds: 10.27
+INFO (IPF059): 5: Completed proof on task: "<embedded>"
+@@@ RUNG top.t1s_inst.g_slot[9].t1s RETURNED Thu Nov  5 10:25:57 PM PST 2026
+@@@ ZOK top.t1s_inst.g_slot[9].t1s
+@@@ RUNG top.t1s_inst.g_slot[31].t1s START Thu Nov  5 10:25:57 PM PST 2026
+INFO (IPF036): Starting proof on task: "<embedded>", 1 properties to prove with 0 already proven/unreachable
+INFO (IPF143): 6: Word Level Reduction Summary: inputs from 16 to 11 bits, flops and latches from 93 to 78 bits.
+INFO (IPF031): Settings used for proof thread 6:

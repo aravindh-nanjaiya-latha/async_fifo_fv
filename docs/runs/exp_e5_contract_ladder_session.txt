@@ -1,0 +1,67 @@
+INFO: successfully checked out license "jasper_fao".
+INFO: reading configuration file "/u/aravindh/.config/cadence/jasper.conf".
+INFO (IPF121): Cleared environment completely for new design analysis.
+INFO (ISW003): Top module name is "top".
+INFO (INL217): RTL analysis concluded with an average file read speed of 184 Mbps.
+INFO (INL208): Elaboration synthesis summary:
+INFO (IPM034): Property Status database configuration set to: memory.
+INFO (INL003): Clearing all state information (assumes, stopats, and so forth).
+INFO (IPM031): Clearing proof results of all properties.
+INFO (IRS006): Current reset condition is "wrst_n rrst_n".
+@@@ RUNG hlp_h0_occ_equals_ptr_distance START Thu Nov  5 08:15:18 PM PST 2026
+INFO (IPF036): Starting proof on task: "<embedded>", 1 properties to prove with 0 already proven/unreachable
+INFO (IRS029): Starting reset analysis: phase 1 of 4.
+INFO (IRS030): Running reset analysis: phase 2 of 4.
+INFO (IRS031): Running reset analysis: phase 3 of 4.
+INFO (IRS020): Starting the reset analysis simulation with a limit of 100 iterations (phase 4 of 4).
+INFO (ISIM006): Running simulation: {mode = single, probe = all}.
+INFO (IRS024): Reset iterations 0 to 4 analyzed.
+INFO (ISIM008): Simulation is processing trace data. Total number of nets in analysis 1521.
+INFO (IRS018): Reset analysis simulation executed for 3 iterations. Assigned values for 440 of 448 design flops, 0 of 0 design latches, 185 of 199 internal elements.
+INFO (IRS039): Reset analysis complete.
+INFO (IPF143): 0: Word Level Reduction Summary: inputs from 8 to 3 bits, flops and latches from 60 to 55 bits.
+INFO (IPF031): Settings used for proof thread 0:
+INFO (IPF057): 0.0.PRE: The property ":noDeadEnd" was proven in 0.00 s.
+INFO (IPF057): 0.0.PRE: The property ":noConflict" was proven in 0.00 s.
+INFO (IPF047): 0.0.PRE: The cover property ":live" was covered in 1 cycles in 0.00 s.
+INFO (IPF057): 0.0.Gcustom5: The property "top.tc_checker_inst.hlp_h0_occ_equals_ptr_distance" was proven in 23.87 s.
+INFO (IPF144): 0: Initiating shutdown of proof [61.76 s]
+INFO (IPF180): 0: ProofGrid utilization: 99.84% slot-seconds: 247.04
+INFO (IPF059): 0: Completed proof on task: "<embedded>"
+@@@ RUNG hlp_h0_occ_equals_ptr_distance RETURNED Thu Nov  5 08:16:21 PM PST 2026
+INFO (IPM037): Check whether this operation overconstrains the design and might cause vacuity.
+@@@ ASSUMED hlp_h0_occ_equals_ptr_distance
+@@@ RUNG hlp_h5_tracked_slot_in_window START Thu Nov  5 08:16:21 PM PST 2026
+INFO (IPF036): Starting proof on task: "<embedded>", 1 properties to prove with 0 already proven/unreachable
+INFO (IPF143): 1: Word Level Reduction Summary: No reduction.
+INFO (IPF031): Settings used for proof thread 1:
+INFO (IPF057): 1.0.C: The property "top.tc_checker_inst.hlp_h5_tracked_slot_in_window" was proven in 106.00 s.
+INFO (IPF144): 1: Initiating shutdown of proof [244.43 s]
+INFO (IPF180): 1: ProofGrid utilization: 99.96% slot-seconds: 977.68
+INFO (IPF059): 1: Completed proof on task: "<embedded>"
+@@@ RUNG hlp_h5_tracked_slot_in_window RETURNED Thu Nov  5 08:20:27 PM PST 2026
+@@@ ASSUMED hlp_h5_tracked_slot_in_window
+@@@ RUNG hlp_t3_check_reads_tracked_slot START Thu Nov  5 08:20:27 PM PST 2026
+INFO (IPF036): Starting proof on task: "<embedded>", 1 properties to prove with 0 already proven/unreachable
+INFO (IPF143): 2: Word Level Reduction Summary: No reduction.
+INFO (IPF031): Settings used for proof thread 2:
+INFO (IPF057): 2.0.C: The property "top.tc_checker_inst.hlp_t3_check_reads_tracked_slot" was proven in 57.46 s.
+INFO (IPF144): 2: Initiating shutdown of proof [196.13 s]
+INFO (IPF180): 2: ProofGrid utilization: 99.95% slot-seconds: 784.53
+INFO (IPF059): 2: Completed proof on task: "<embedded>"
+@@@ RUNG hlp_t3_check_reads_tracked_slot RETURNED Thu Nov  5 08:23:43 PM PST 2026
+@@@ ASSUMED hlp_t3_check_reads_tracked_slot
+@@@ RUNG hlp_t2_no_overwrite_while_pending START Thu Nov  5 08:23:43 PM PST 2026
+INFO (IPF036): Starting proof on task: "<embedded>", 1 properties to prove with 0 already proven/unreachable
+INFO (IPF143): 3: Word Level Reduction Summary: No reduction.
+INFO (IPF031): Settings used for proof thread 3:
+INFO (IPF057): 3.0.I: The property "top.tc_checker_inst.hlp_t2_no_overwrite_while_pending" was proven in 0.11 s.
+INFO (IPF144): 3: Initiating shutdown of proof [5.21 s]
+INFO (IPF180): 3: ProofGrid utilization: 74.19% slot-seconds: 15.76
+INFO (IPF059): 3: Completed proof on task: "<embedded>"
+@@@ RUNG hlp_t2_no_overwrite_while_pending RETURNED Thu Nov  5 08:23:49 PM PST 2026
+@@@ ASSUMED hlp_t2_no_overwrite_while_pending
+@@@ RUNG hlp_t1_slot_holds_tracked START Thu Nov  5 08:23:49 PM PST 2026
+INFO (IPF036): Starting proof on task: "<embedded>", 1 properties to prove with 0 already proven/unreachable
+INFO (IPF143): 4: Word Level Reduction Summary: inputs from 24 to 20 bits, flops and latches from 445 to 351 bits.
+INFO (IPF031): Settings used for proof thread 4:
